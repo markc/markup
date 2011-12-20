@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Markup Tester</title>
+    <style>
+
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #DFDFDF;
+  color: #1F1F1F;
+  margin: 0 auto;
+  padding-bottom: 1em;
+  overflow-y: scroll;
+  width: 42em;
+  -webkit-transition: all .25s ease-in-out;
+}
+
+* {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  font-family: Arial, sans-serif;
+  font-size: 100%;
+  line-height: 125%;
+  margin: 0;
+  outline: none;
+  padding: 0;
+}
+
+article, aside, footer, header, hgroup, nav, section {
+  display: block;
+}
+
+h1 { font-size: 200%; }
+h2 { font-size: 150%; }
+h3 { font-size: 120%; }
+h4 { font-size: 100%; }
+h5 { font-size: 90%; }
+h6 { font-size: 75%; }
+
+p, pre, h1, h2, h3, h4, h5, h6, hr {
+  margin-top: 0.75em;
+  margin-bottom: 0.25em;
+}
+
+ul, ol, blockquote {
+  margin-left: 1.5em;
+}
+
+blockquote p {
+  color: #5F5F5F;
+  font-family: "Georgia", serif;
+  font-style: italic;
+}
+
+code {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+a {
+  color: #3F7FDF;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #BF0000;
+}
+
+textarea {
+  font-family: monospace;
+  height: 20em;
+  width: 100%;
+}
+
+pre {
+  background-color: #CFCFCF;
+  border-radius: 0.3em;
+  border: 0.1em solid #BFBFBF;
+  color: #1F1F1F;
+  font-family: monospace;
+  margin-left: 1.5em;
+  overflow: auto;
+  padding: 0.5em 1em;
+  width: 90%;
+}
+
+hr {
+  border-bottom: 0.1em solid #BFBFBF;
+}
+
+#logo {
+  color: #DFDFDF;
+  text-align: center;
+  font-weight: bold;
+  font-size: 500%;
+  min-height: 1em;
+  text-shadow: 0 -0.02em 0em #F7F7F7, 0 0.01em 0.06em #3F3F3F;
+}
+
+#panel {
+  border: 0.1em solid #BFBFBF;
+  border-radius: 0.5em;
+  padding: 0.5em 0em 0.25em 1em;
+  box-shadow: 0 0.1em 0.4em rgba(0, 0, 0, 0.4);
+  margin-bottom: 0.5em;
+}
+
+#panel:hover {
+  box-shadow: inset 0 0.1em 0.4em rgba(0, 0, 0, 0.4);
+}
+
+nav {
+  padding: 0.25em;
+  text-align: center;
+}
+
+nav a {
+  background-color: #BFBFBF;
+  border: 0.1em solid #3F3F3F;
+  border-radius: 0.3em;
+  color: #000000;
+  font-size: 75%;
+  padding: 0.25em 1em;
+  text-shadow: 0 0.1em 0.1em #BFBFBF;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#DFDFDF', endColorstr='#7F7F7F');
+  background: -webkit-gradient(linear, left top, left bottom, from(#DFDFDF), to(#7F7F7F));
+  background: -moz-linear-gradient(top, #DFDFDF, #7F7F7F);
+  box-shadow: 0 0.1em 0.3em rgba(0, 0, 0, 0.4);
+}
+
+nav a:hover {
+  background-color: #7F7F7F;
+  border-color: #3F3F3F;
+  color: #FFFFFF;
+  text-shadow: 0 0.1em 0.1em #000000;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5F5F5F', endColorstr='#9F9F9F');
+  background: -webkit-gradient(linear, left top, left bottom, from(#5F5F5F), to(#9F9F9F));
+  background: -moz-linear-gradient(top, #5F5F5F, #9F9F9F);
+  box-shadow: 0 0 0 #FFFFFF;
+}
+
+#preview {
+  min-height: 16em;
+  margin-bottom: 0.5em;
+}
+
+.active { color: #BF0000; }
+.large { font-size: 150%; }
+.dark {
+  background-color: #3F3F3F;
+  color: #DFDFDF;
+}
+
+    </style>
+    <script src="https://raw.github.com/chjj/marked/master/lib/marked.js"></script>
+    <script>
+
+function $(id) {
+  return document.getElementById(id);
+}
+
+function html_encode(str) {
+  return str.replace(/[&<>"']/g, function($0) {
+    return "&" + {"&":"amp", "<":"lt", ">":"gt", '"':"quot", "'":"#39"}[$0] + ";";
+  });
+}
+
+function markup() {
+  $('preview').innerHTML = marked($('editor').value)
+}
+
+function html() {
+  $('preview').innerHTML = '<textarea>'+
+    html_encode(marked($('editor').value)) +'</textarea>';
+}
+
+function json() {
+  $('preview').innerHTML = '<textarea>'+
+    JSON.stringify(marked.lexer($('editor').value), null, 2) +'</textarea>';
+}
+
+function help() {
+  $('preview').innerHTML = '<textarea>'+
+    $('help').innerHTML.toString() +'</textarea>';
+}
+
+function clearit() {
+  $('preview').innerHTML = '';
+  $('editor').value = '';
+  localStorage.clear();
+}
+
+function save() {
+  localStorage.setItem('preview', $('editor').value);
+}
+
+function get(url) {
+  var x = new XMLHttpRequest();
+  x.onreadystatechange = function() {
+    if (x.readyState == 4 && x.status == 200) {
+      $('preview').innerHTML = marked(x.responseText); }}
+  x.open('GET', url, true); x.send();
+}
+
+window.onload = function() {
+  if (localStorage.getItem('preview')) {
+    $('editor').value = localStorage.getItem('preview');
+  }
+}
+
+    </script>
+   </head>
+  <body id="top" class="">
+    <header id="logo">MarkupTest</header>
+    <nav>
+      <a href="#" onclick="markup()">Markup</a>
+      <a href="#" onclick="help()">Help</a>
+      <a href="#" onclick="get('README.md')">Readme</a>
+      <a href="#" onclick="html()">HTML</a>
+      <a href="#" onclick="json()">JSON</a>
+      <a href="#" onclick="save()">Save</a>
+      <a href="#" onclick="clearit()">Clear</a>
+      <a href="#" onclick="document.body.classList.toggle('large');this.classList.toggle('active')">Large</a>
+    </nav>
+    <section id="preview"></section>
+    <div id="panel">
+      <textarea id="editor"># Hello World</textarea>
+    </div>
+   <nav id="nav">
+      <a href="#" onclick="markup()">Markup</a>
+      <a href="#" onclick="help()">Help</a>
+      <a href="#" onclick="get('README.md')">Readme</a>
+      <a href="#" onclick="html()">HTML</a>
+      <a href="#" onclick="json()">JSON</a>
+      <a href="#" onclick="save()">Save</a>
+      <a href="#" onclick="clearit()">Clear</a>
+      <a href="#" onclick="document.body.classList.toggle('large');this.classList.toggle('active')">Large</a>
+    </nav>
+    <pre id="help" style="display:none">
+
+Markdown Help
+=============
+
+Paragraphs of text separated by blank lines are enclosed in **p**
+tags but the underlying text remains with the original line breaks.
+Click on this preview area and use Ctrl-A and Ctrl-C to copy this
+text then Ctrl-V in the editor to markup and render this help text.
+
+# h1 header tag
+## h2 header tag
+###### h6 header tag
+
+*Italic text and * _more italic text_
+
+**Bold text and ** __more Bold text__
+
+*Italic **and** bold can be combined*
+
+* Item 1 of an unordered list
+* Item 2
+  * Item 2a
+  * Item 2b
+
+*   Item 3
+
+    If you indent extra paragraphs by 3 or 4 spaces then this text
+    will be wrapped by **&lt;p&gt;** tags within the list item.
+
+    Lists need something that starts at the begining of a new line to
+    separate a list from whatever follows so we'll use a horizontal
+    rule.
+
+----
+
+1. Item 1 of an ordered list
+2. Item 2
+    - Indented four spaces.
+        + indented eight spaces.
+    - Four spaces again.
+3. Item 3
+   * Item 3a
+   * Item 3b
+
+This plain http://google.com link is not marked up but this inline
+[Google](http://google.com "Search The Web") link is. Here is a
+reference-style link; [Check out GitHub][1] where the link definition
+can be anywhere on the page but must be unique. If there is no trailing
+link reference then the link tag itself can be used for the reference,
+for example, [Youtube!] rocks. Links and email addresses can also be
+enclosed in angle brackets to provide simple inline markup.
+
+  [1]: https://github.com/
+  [Youtube!]: http://www.youtube.com/
+
+Here is an image -- ![This is Alt text](/favicon.ico "favicon.ico")
+
+> Blockquotes use traditional email style angle brackets and can
+> **include markup**.
+>
+> > You can even have nested blockquotes.
+
+This is an example of `inline code` using backticks.
+
+    // Code is just text indented by 4 spaces
+    // Any markdown text or HTML will remain untouched
+
+    function hello(str) {
+      return "**Hello** " + (str||"_World_");
+    }
+
+And finally, if you need to do something that Markdown can't handle
+then you can always just use HTML, however, block element begin and
+end tags cannot be indented and must be separated by blank lines.
+Span-level HTML can include markup but any block-level markup will
+be ignored.
+
+</pre>
+  </body>
+</html>
