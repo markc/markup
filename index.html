@@ -94,7 +94,7 @@ hr {
   border-bottom: 0.1em solid #BFBFBF;
 }
 
-#logo {
+header {
   color: #DFDFDF;
   text-align: center;
   font-weight: bold;
@@ -103,7 +103,7 @@ hr {
   text-shadow: 0 -0.02em 0em #F7F7F7, 0 0.01em 0.06em #3F3F3F;
 }
 
-#panel {
+#editor-panel {
   border: 0.1em solid #BFBFBF;
   border-radius: 0.5em;
   padding: 0.5em 0em 0.25em 1em;
@@ -111,7 +111,7 @@ hr {
   margin-bottom: 0.5em;
 }
 
-#panel:hover {
+#editor-panel:hover {
   box-shadow: inset 0 0.1em 0.4em rgba(0, 0, 0, 0.4);
 }
 
@@ -143,6 +143,15 @@ nav a:hover {
   background: -webkit-gradient(linear, left top, left bottom, from(#5F5F5F), to(#9F9F9F));
   background: -moz-linear-gradient(top, #5F5F5F, #9F9F9F);
   box-shadow: 0 0 0 #FFFFFF;
+}
+
+footer {
+  color: #7F7F7F;
+  font-family: "Georgia", serif;
+  font-size: 66%;
+  font-style: italic;
+  margin: 1em 0;
+  text-align: center;
 }
 
 #preview {
@@ -192,12 +201,12 @@ function help() {
 
 function clearit() {
   $('preview').innerHTML = '';
-  $('editor').value = '';
-  localStorage.clear();
+  $('editor').value = '# Hello World\n';
+  localStorage.removeItem('markup');
 }
 
 function save() {
-  localStorage.setItem('preview', $('editor').value);
+  localStorage.setItem('markup', $('editor').value);
 }
 
 function get(url) {
@@ -209,15 +218,15 @@ function get(url) {
 }
 
 window.onload = function() {
-  if (localStorage.getItem('preview')) {
-    $('editor').value = localStorage.getItem('preview');
+  if (localStorage.getItem('markup')) {
+    $('editor').value = localStorage.getItem('markup');
   }
 }
 
     </script>
    </head>
-  <body id="top" class="">
-    <header id="logo">MarkupTest</header>
+  <body class="">
+    <header>MarkupTest</header>
     <nav>
       <a href="#" onclick="markup()">Markup</a>
       <a href="#" onclick="help()">Help</a>
@@ -228,11 +237,13 @@ window.onload = function() {
       <a href="#" onclick="clearit()">Clear</a>
       <a href="#" onclick="document.body.classList.toggle('large');this.classList.toggle('active')">Large</a>
     </nav>
-    <section id="preview"></section>
-    <div id="panel">
-      <textarea id="editor"># Hello World</textarea>
-    </div>
-   <nav id="nav">
+    <section id="preview">
+    </section>
+    <section id="editor-panel">
+      <textarea id="editor"># Hello World
+      </textarea>
+    </section>
+    <nav>
       <a href="#" onclick="markup()">Markup</a>
       <a href="#" onclick="help()">Help</a>
       <a href="#" onclick="get('README.md')">Readme</a>
@@ -242,6 +253,11 @@ window.onload = function() {
       <a href="#" onclick="clearit()">Clear</a>
       <a href="#" onclick="document.body.classList.toggle('large');this.classList.toggle('active')">Large</a>
     </nav>
+    <footer>
+      <a href="http://validator.w3.org/check?uri=referer" title="Validate This Page">
+        Copyright &copy; 2007-2011 Mark Constable (AGPLv3)
+      </a>
+    </footer>
     <pre id="help" style="display:none">
 
 Markdown Help
