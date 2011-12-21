@@ -44,7 +44,7 @@ branch.
 This makes a local clone of our remote Github project then creates a
 gh-pages branch to mirror the remote origin master branch and pushes
 that branch through to Github where in about 10 minutes the contents
-of the gh-pages branch will appear at $USERNAME/github.com/$PROJECT.
+of the gh-pages branch will appear at $USERNAME.github.com/$PROJECT.
 Now when we make local changes to these files we still need to manually
 pull and push the gh-pages branch but at least we don't have to mess
 around with local merging and manual editing in the gh-pages branch.
@@ -59,9 +59,21 @@ around with local merging and manual editing in the gh-pages branch.
 
 Remember to always switch back to the master branch to make changes so
 the above just becomes a slightly tedious but trouble free procedure.
-You can always set up shell alias to make the above a simple procedure,
+You can always set up shell alias to make the above a simple procedure
+and in this example the first `git push` stage will pull up your
+configured editor (ie; echo $EDITOR) to add the commit message...
 
-    alias gh='git commit -a; git push; git checkout gh-pages; git pull; git push; git checkout master'
+    alias gh='\
+      git commit -a && \
+      git push && \
+      git checkout gh-pages && \
+      git pull && \
+      git push && \
+      git checkout master'
+
+Of course managing this repo via QtCreator will still require manual
+mouse twiddling unless the above is converted to an external command
+via Tools -> External.
 
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
