@@ -27,7 +27,10 @@ How to setup Githubs gh-pages
 
 [pages.github.com] describes how to set up a Github managed website for
 both users and projects, here we will focus on how to set up a project
-site using this project as an example.
+site using this project as an example. In this case our web files are
+already managed in the master branch so we just want a gh-pages branch
+to mirror the master branch so we don't have to continually merge our
+changes from the master branch to the gh-pages branch.
 
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
