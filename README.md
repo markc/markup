@@ -78,18 +78,29 @@ via `Tools -> External`. Using QtCreator to save changes and then
 so an external command to just manage the push and pull actions is all
 that is needed...
 
+    alias se='sudo nano -t -x -c'
+    se /usr/bin/gh-pages
+        #!/bin/sh
+
+        git push && \
+          git checkout gh-pages && \
+          git pull && \
+          git push && \
+          git checkout master
+    sudo chmod +x /usr/bin/gh-pages
+
+and now link the above script to a Tools -> External menu option...
+
     Tools -> External -> Configure
     Add Category (ie; Git)
     Add Tool (ie; "Github Pages" under Git)
-    Executable: git push && git checkout gh-pages && git pull && git push && git checkout master
+    Executable: gh-pages
     Working Directory: %{CurrentDocument:Path}
 
-and now after making changes and adding a commit message just use...
+After making changes and adding a commit message just use...
 
     Tools -> External -> Git -> Github Pages
-
     instead of
-
     Tools -> Git -> Push (... and the other steps)
 
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
