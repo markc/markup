@@ -34,17 +34,34 @@ gh-pages branch to mirror the master branch in a way that we don't have
 to manually merge our changes from the master branch to the gh-pages
 branch.
 
-    USERNAME=#your Github user name
-    PROJECT=#your Github project name
-    cd workarea
+    PROJECT=    # your Github project name
+    USERNAME=   # your Github user name
+    cd ~/Devel  # your work area
     git clone git@github.com:$USERNAME/$PROJECT.git
     git branch --set-upstream gh-pages origin/master
     git push origin gh-pages
 
-This pulls in our project and sets up the gh-pages branch to mirror the
-remote origin master branch and pushes that branch through to Github
-where in about 10 minutes the contents of the gh-pages branch will
-appear at $USERNAME/github.com/$PROJECT.
+This makes a local clone of our remote Github project then creates a
+gh-pages branch to mirror the remote origin master branch and pushes
+that branch through to Github where in about 10 minutes the contents
+of the gh-pages branch will appear at $USERNAME/github.com/$PROJECT.
+Now when we make local changes to these files we still need to manually
+pull and push the gh-pages branch but at least we don't have to mess
+around with local merging and manual editing in the gh-pages branch.
+
+    # example: update README.md
+    git commit -am "Updated README.md"
+    git push
+    git checkout gh-pages
+    git pull
+    git push
+    git checkout master
+
+Remember to always switch back to the master branch to make changes so
+the above just becomes a slightly tedious but trouble free procedure.
+You can always set up shell alias to make the above a simple procedure,
+
+    alias gh='git commit -a; git push; git checkout gh-pages; git pull; git push; git checkout master'
 
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
