@@ -22,10 +22,18 @@ preview system with a few interesting features:
 - CSS3 rollover link "buttons" and body pagesize transition
 - won't work with older versions of IE (yes, that's a feature)
 
+How to setup Githubs gh-pages
+-----------------------------
+
+[pages.github.com] describes how to set up a Github managed website for
+both users and projects, here we will focus on how to set up a project
+site using this project as an example.
+
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
  [Markdown]: http://daringfireball.net/projects/markdown/
  [index.html]: http://markc.github.com/markup/index.html
+ [pages.github.com]: http://pages.github.com/
  [marked]: https://github.com/chjj/marked
  [MarkupTest]: http://markc.github.com/markup
  [QtCreator]: http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
