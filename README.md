@@ -32,6 +32,13 @@ already managed in the master branch so we just want a gh-pages branch
 to mirror the master branch so we don't have to continually merge our
 changes from the master branch to the gh-pages branch.
 
+    USERNAME=#your Github user name
+    PROJECT=#your Github project name
+    cd workarea
+    git clone git@github.com:$USERNAME/$PROJECT.git
+    git branch --set-upstream gh-pages origin/master
+    git push origin gh-pages
+    
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
  [Markdown]: http://daringfireball.net/projects/markdown/
