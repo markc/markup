@@ -73,7 +73,24 @@ configured editor (ie; echo $EDITOR) to add the commit message...
 
 Of course managing this repo via QtCreator will still require manual
 mouse twiddling unless the above is converted to an external command
-via Tools -> External.
+via `Tools -> External`. Using QtCreator to save changes and then
+`Tools -> Git -> Commit` to provide the commit message is reasonable
+so an external command to just manage the push and pull actions is all
+that is needed...
+
+    Tools -> External -> Configure
+    Add Category (ie; Git)
+    Add Tool (ie; "Github Pages" under Git)
+    Executable: git push && git checkout gh-pages && git pull && git push && git checkout master
+    Working Directory: %{CurrentDocument:Path}
+
+and now after making changes and adding a commit message just use...
+
+    Tools -> External -> Git -> Github Pages
+
+    instead of
+
+    Tools -> Git -> Push (... and the other steps)
 
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
