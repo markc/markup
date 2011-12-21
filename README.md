@@ -26,11 +26,13 @@ How to setup Githubs gh-pages
 -----------------------------
 
 [pages.github.com] describes how to set up a Github managed website for
-both users and projects, here we will focus on how to set up a project
-site using this project as an example. In this case our web files are
-already managed in the master branch so we just want a gh-pages branch
-to mirror the master branch so we don't have to continually merge our
-changes from the master branch to the gh-pages branch.
+both users and projects. Here we will focus on how to set up a **project
+site** using this project as a guiding example where the master branch
+contains only files intended for the gh-pages website. In this case our
+web files are already managed in the master branch so we just want a
+gh-pages branch to mirror the master branch in a way that we don't have
+to manually merge our changes from the master branch to the gh-pages
+branch.
 
     USERNAME=#your Github user name
     PROJECT=#your Github project name
@@ -38,7 +40,12 @@ changes from the master branch to the gh-pages branch.
     git clone git@github.com:$USERNAME/$PROJECT.git
     git branch --set-upstream gh-pages origin/master
     git push origin gh-pages
-    
+
+This pulls in our project and sets up the gh-pages branch to mirror the
+remote origin master branch and pushes that branch through to Github
+where in about 10 minutes the contents of the gh-pages branch will
+appear at $USERNAME/github.com/$PROJECT.
+
  [AGPLv3]: http://www.gnu.org/licenses/agpl.html
  [Showdown]: https://github.com/coreyti/showdown
  [Markdown]: http://daringfireball.net/projects/markdown/
