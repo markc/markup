@@ -1,7 +1,7 @@
 Markup README
 =============
 
-###### Copyright &copy; 2011 Mark Constable -- License: [AGPLv3]
+###### Copyright &copy; 2011 Mark Constable, License: [AGPLv3]
 
 This project was going to be my attempt at a modified and simpler
 version of [Showdown], a Javascript port of the original perl based
@@ -22,8 +22,8 @@ preview system with a few interesting features:
 - CSS3 rollover link "buttons" and body pagesize transition
 - won't work with older versions of IE (yes, that's a feature)
 
-How to setup Githubs gh-pages
------------------------------
+How To Setup Github Project Pages
+---------------------------------
 
 [pages.github.com] describes how to set up a Github managed website for
 both users and projects. Here we will focus on how to set up a **project
