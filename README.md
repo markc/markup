@@ -80,13 +80,14 @@ that is needed...
 
     alias se='sudo nano -t -x -c'
     se /usr/bin/gh-pages
-        #!/bin/sh
 
+        #!/bin/sh
         git push && \
           git checkout gh-pages && \
           git pull && \
           git push && \
           git checkout master
+
     sudo chmod +x /usr/bin/gh-pages
 
 and now link the above script to a Tools -> External menu option...
@@ -103,11 +104,12 @@ After making changes and adding a commit message just use...
     instead of
     Tools -> Git -> Push (... and the other steps)
 
- [AGPLv3]: http://www.gnu.org/licenses/agpl.html
- [Showdown]: https://github.com/coreyti/showdown
- [Markdown]: http://daringfireball.net/projects/markdown/
- [index.html]: http://markc.github.com/markup/index.html
- [pages.github.com]: http://pages.github.com/
- [marked]: https://github.com/chjj/marked
- [MarkupTest]: http://markc.github.com/markup
- [QtCreator]: http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
+
+[AGPLv3]: http://www.gnu.org/licenses/agpl.html
+[Showdown]: https://github.com/coreyti/showdown
+[Markdown]: http://daringfireball.net/projects/markdown/
+[index.html]: http://markc.github.com/markup/index.html
+[pages.github.com]: http://pages.github.com/
+[marked]: https://github.com/chjj/marked
+[MarkupTest]: http://markc.github.com/markup
+[QtCreator]: http://developer.qt.nokia.com/wiki/Category:Tools::QtCreator
