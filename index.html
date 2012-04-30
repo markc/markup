@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="author" content="(C) 2011 Mark Constable (AGPLv3)">
-    <title>MarkupTest</title>
+    <meta name="author" content="(C) 2012 Mark Constable (AGPLv3)">
+    <title>Markup</title>
     <style>
 
 html {
@@ -16,10 +16,11 @@ body {
   color: #1F1F1F;
   margin: 0 auto;
   padding-bottom: 1em;
+  padding-top: 3em;
   overflow-y: scroll;
   width: 42em;
-  -webkit-transition: all .25s ease-in-out;
-  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .125s ease-in-out;
+  -moz-transition: all .125s ease-in-out;
 }
 
 * {
@@ -99,17 +100,6 @@ hr {
   border-bottom: 0.1em solid #BFBFBF;
 }
 
-#logo {
-  color: #DFDFDF;
-  display: block;
-  text-align: center;
-  font-weight: bold;
-  font-size: 500%;
-  line-height: 110%;
-  min-height: 1em;
-  text-shadow: 0 -0.02em 0.02em #FFFFFF, 0 0.01em 0.06em #7F7F7F;
-}
-
 nav {
   padding: 0.5em 0em;
   text-align: center;
@@ -152,6 +142,44 @@ footer a {
   font-family: "Georgia", serif;
   font-size: 66%;
   font-style: italic;
+}
+
+#top {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2.75em;
+  width: 100%;
+  background: -webkit-gradient(linear, left top, left bottom, from(#5F5F5F), to(#1F1F1F));
+  background: -moz-linear-gradient(top, #5F5F5F, #1F1F1F);
+}
+
+#top nav {
+  text-align: right;
+  padding-right: 0.5em;
+}
+
+#top nav a {
+  color: #DFDFDF;
+  border-color: #3F3F3F;
+  text-shadow: 0 -1px 0 #000000;
+  background: -webkit-gradient(linear, left top, left bottom, from(#5F5F5F), to(#1F1F1F));
+  background: -moz-linear-gradient(top, #5F5F5F, #1F1F1F);
+}
+
+#top nav a:hover {
+  background: -webkit-gradient(linear, left top, left bottom, from(#1F1F1F), to(#5F5F5F));
+  background: -moz-linear-gradient(top, #1F1F1F, #5F5F5F);
+}
+
+#logo {
+  position: absolute;
+  color: #7F7F7F;
+  font-size: 2em;
+  font-weight: bold;
+  line-height: 120%;
+  text-shadow: 0 -1px 0 #9F9F9F, 0 1px 1px #000000;
+  margin-left: 0.25em;
 }
 
 #preview {
@@ -236,7 +264,7 @@ window.onload = function() {
    </head>
   <body class="">
     <header id="top">
-      <a id="logo" href="/">MarkupTest</a>
+      <a id="logo" href="/">Markup</a>
       <nav>
         <a href="#" onclick="get('README.md')">Readme</a>
         <a href="#" onclick="help()">Help</a>
