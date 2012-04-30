@@ -1,5 +1,5 @@
-Markup README
-=============
+Markup
+======
 
 ###### Copyright &copy; 2012 Mark Constable, License: [AGPLv3]
 
