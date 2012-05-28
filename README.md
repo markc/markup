@@ -3,11 +3,11 @@ Markup README
 
 ###### Copyright &copy; 2012 Mark Constable, License: [AGPLv3]
 
-This simple project is a single file HTML5/CSS3 [Markup] page that
-provides a minimal editor and markup preview system with a few
-interesting features:
+This simple project is a single file HTML5/CSS3 [Markup] page
+that provides a minimal editor and [Markdown] preview system with
+a few interesting features:
 
-* a single self contained ~12KB page, just wget [index.html]
+* a single self contained ~12KB page, just wget or copy [index.html]
 * only depends are [marked.js] from Github, README.md, favicon.ico
 * minimal modern HTML5/CSS3 page template for any purpose
 * an ultra simple AJAX GET function that does not require jQuery
@@ -17,6 +17,12 @@ interesting features:
 * example of using [QtCreator] generic project files
 * dynamic CSS page resize using only `body {font-size: xxx%;}`
 * won't work with older versions of IE (yes, that's a feature)
+
+To see the page resize in action: use F12 in Chrome(ium) or
+Firefox (assuming Firebug is installed) and select the `<body>`
+tag then look for the `font-size: 100%` setting, click on it, and
+change it anywhere from `50%` to `500%` and note how every element
+on the page auto resizes accordingly.
 
 How To Setup Github Project Pages
 ---------------------------------

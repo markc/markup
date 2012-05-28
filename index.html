@@ -298,6 +298,8 @@ footer a {
 
 window.onload = function() {
 
+  // support functions
+
   var id = function(id) { return document.getElementById(id); };
 
   var html_encode = function(str) {
@@ -306,16 +308,18 @@ window.onload = function() {
     });
   };
 
-  id('store').onclick = function() {
-    localStorage.setItem('stored', id('text').value);
+  var get = function(url, target) {
+    target = target || 'view';
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+      if (x.readyState == 4 && x.status == 200) {
+        id(target).innerHTML = url.match(/\.md$/)
+          ? marked(x.responseText) : x.responseText; }}
+    x.open('GET', url, true); x.send();
     return false;
-  };
+  }
 
-  id('clear').onclick = function () {
-    localStorage.clear();
-    id('view').innerHTML = '# Hello World';
-    return false;
-  };
+  // link event handlers
 
   id('show').onclick = function () {
     id('view').innerHTML = marked(id('text').value);
@@ -348,21 +352,24 @@ window.onload = function() {
     return false;
   };
 
+  id('store').onclick = function() {
+    localStorage.setItem('stored', id('text').value);
+    return false;
+  };
+
+  id('clear').onclick = function () {
+    localStorage.clear();
+    id('text').value = '# Hello World';
+    id('view').innerHTML = '';
+    return false;
+  };
+
   id('readme').onclick = function() {
     get('/README.md');
     return false;
   };
 
-  var get = function(url, target) {
-    target = target || 'view';
-    var x = new XMLHttpRequest();
-    x.onreadystatechange = function() {
-      if (x.readyState == 4 && x.status == 200) {
-        id(target).innerHTML = url.match(/\.md$/)
-          ? marked(x.responseText) : x.responseText; }}
-    x.open('GET', url, true); x.send();
-    return false;
-  }
+  // live code active on page (re)load
 
   if (localStorage.getItem('stored')) {
     id('text').innerHTML = localStorage.getItem('stored');
@@ -370,10 +377,10 @@ window.onload = function() {
   } else {
     get('README.md');
   }
-};
 
+};
     </script>
-   </head>
+  </head>
   <body>
     <header id="top">
       <a id="logo" href="/">
