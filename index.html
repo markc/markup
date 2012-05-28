@@ -6,13 +6,13 @@
     <title>Markup</title>
     <style>
 
-/* resetus maximus */
+/* layout, start with resetus maximus */
 
 * {
   background-color: inherit;
   color: inherit;
   border: none;
-  font-family: Arial, sans-serif;
+  font-family: "Arial", sans-serif;
   font-size: 100%;
   line-height: 160%;
   margin: 0;
@@ -26,19 +26,12 @@ html {
 }
 
 body {
-  background-color: #DFDFDF;
-  color: #2F2F2F;
-  margin: 2.5em auto;
+  margin: 2.6em auto;
   overflow-y: scroll;
   width: 54em;
-
   font-family: Arial, sans-serif;
   font-size: 100%;
   line-height: 160%;
-}
-
-article, aside, footer, header, hgroup, nav, section {
-  display: block;
 }
 
 h1 { font-size: 200%; }
@@ -57,16 +50,11 @@ h1 {
 }
 
 h2 {
-  border-bottom-color: #CFCFCF;
   border-bottom-style: solid;
   border-bottom-width: 0.05em;
 }
 
-h6 {
-  color: #7F7F7F;
-}
-
-p, hr, ul, ol, blockquote, pre {
+p, hr, ul, ol, blockquote, pre, #area {
   margin: 0.5em 0em 1em 0em;
 }
 
@@ -75,7 +63,6 @@ ul, ol, blockquote {
 }
 
 blockquote p {
-  color: #5F5F5F;
   font-family: "Georgia", serif;
   font-style: italic;
 }
@@ -86,52 +73,32 @@ code {
 }
 
 a {
-  color: #007FFF;
   text-decoration: none;
 }
 
-a:hover {
-  color: #DF0000;
-}
-
-textarea {
-  background-color: #FFFFFF;
+#text {
   font-family: monospace;
-  line-height: 160%;
-  height: 100%;
+  height: 10em;
+  margin-top: 0.5em;
   width: 100%;
 }
 
-pre {
-  background-color: #F7F7F7;
+pre, #area {
   border-radius: 0.3em;
-  border-color: #CFCFCF;
   border-style: solid;
   border-width: 0.075em;
-  color: #2F2F2F;
   font-family: monospace;
   overflow: auto;
   padding: 0.5em 1em;
 
-  -webkit-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 }
 
-pre:hover, #editor-panel:hover {
-  -webkit-box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
-  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
-}
-
 hr {
-  border-bottom: 0.075em solid #CFCFCF;
+  border-bottom-style: solid;
+  border-bottom-width: 0.075em;
 }
 
 nav {
@@ -140,49 +107,11 @@ nav {
 }
 
 nav a {
-  background-color: #DFDFDF;
-  border-color: #CFCFCF;
   border-style: solid;
   border-width: 0.09em;
-  border-bottom-color: #BFBFBF;
   border-radius: 0.3em;
-  color: #1F1F1F;
   font-size: 75%;
-  font-weight: bold;
   padding: 0.5em 1em;
-  text-shadow: 0 0.075em 0 #FFFFFF;
-
-  background: -webkit-linear-gradient(top, #F7F7F7, #D7D7D7);
-  background: -moz-linear-gradient(top, #F7F7F7, #D7D7D7);
-  background: linear-gradient(top, #F7F7F7, #D7D7D7);
-
-  -webkit-box-shadow: 0 0.09em 0.09em #FFFFFF inset;
-  -moz-box-shadow: 0 0.09em 0.09em #FFFFFF inset;
-  box-shadow: 0 0.09em 0.09em #FFFFFF inset;
-}
-
-nav a:hover {
-  background-color: #CFCFCF;
-  border-color: #3F7FBF;
-  border-bottom-color: #003F7F;
-  color: #FFFFFF;
-  text-shadow: 0 -0.075em 0 #000000;
-
-  background: -webkit-linear-gradient(top, #5F9FDF, #1F5F8F);
-  background: -moz-linear-gradient(top, #5F9FDF, #1F5F8F);
-  background: linear-gradient(top, #5F9FDF, #1F5F8F);
-
-  -webkit-box-shadow: 0 0.09em 0.09em #7FBFEF inset;
-  -moz-box-shadow: 0 0.09em 0.09em #7FBFEF inset;
-  box-shadow: 0 0.09em 0.09em #7FBFEF inset;
-}
-
-nav a:active {
-  background: #3F7FCF;
-
-  -webkit-box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
-  -moz-box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
-  box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
 }
 
 footer {
@@ -190,28 +119,17 @@ footer {
 }
 
 footer a {
-  color: #7F7F7F;
   font-family: "Georgia", serif;
   font-size: 75%;
   font-style: italic;
 }
 
 #top {
-  background-color: #3F3F3F;
   left: 0;
   height: 3em;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 99;
-
-  background: -webkit-linear-gradient(top, #5F5F5F, #1F1F1F);
-  background: -moz-linear-gradient(top, #5F5F5F, #1F1F1F);
-  background: linear-gradient(top, #5F5F5F, #1F1F1F);
-
-  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 1);
-  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 1);
-  box-shadow: 0 0 1em rgba(0, 0, 0, 1);
 }
 
 #top nav {
@@ -219,251 +137,353 @@ footer a {
   padding-right: 0.5em;
 }
 
+#logo {
+  display: inline-block;
+  float: left;
+  line-height: 100%;
+}
+
+#logo img {
+  height: 3em;
+  vertical-align: top;
+}
+
+#logo span {
+  font-size: 2.7em;
+  font-weight: bold;
+  line-height: 100%;
+}
+
+#mid {
+  min-height: 16em;
+  border-style: solid;
+  border-width: 0.075em;
+  border-radius: 0.6em;
+  padding: 1em 1.5em;
+  margin-bottom: 1em;
+}
+
+.hidden { display: none; }
+
+/* colors */
+
+body {
+  background-color: #DFDFDF;
+  color: #2F2F2F;
+}
+
+h2 {
+  border-bottom-color: #CFCFCF;
+}
+
+blockquote p {
+  color: #5F5F5F;
+}
+
+a {
+  color: #007FFF;
+}
+
+a:hover {
+  color: #DF0000;
+}
+
+#text {
+  background-color: #F7F7F7;
+}
+
+pre, #area {
+  background-color: #F7F7F7;
+  border-radius: 0.3em;
+  border-color: #CFCFCF;
+  color: #2F2F2F;
+  -webkit-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+pre:hover, #area:hover {
+  -webkit-box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
+  box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.5);
+}
+
+hr {
+  border-bottom-color: #CFCFCF;
+}
+
+nav a {
+  background-color: #DFDFDF;
+  border-color: #CFCFCF;
+  border-bottom-color: #BFBFBF;
+  color: #1F1F1F;
+  text-shadow: 0 0.075em 0 #FFFFFF;
+  background: -webkit-linear-gradient(top, #F7F7F7, #D7D7D7);
+  background: -moz-linear-gradient(top, #F7F7F7, #D7D7D7);
+  background: linear-gradient(top, #F7F7F7, #D7D7D7);
+  -webkit-box-shadow: 0 0.09em 0.09em #FFFFFF inset;
+  -moz-box-shadow: 0 0.09em 0.09em #FFFFFF inset;
+  box-shadow: 0 0.09em 0.09em #FFFFFF inset;
+}
+
+nav a:hover {
+  background: #CFCFCF;
+}
+
+nav a:active {
+  background: #3F7FCF;
+  -webkit-box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
+  -moz-box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
+  box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
+}
+
+footer a {
+  color: #7F7F7F;
+}
+
+#top {
+  background-color: #3F3F3F;
+  background: -webkit-linear-gradient(top, #5F5F5F, #1F1F1F);
+  background: -moz-linear-gradient(top, #5F5F5F, #1F1F1F);
+  background: linear-gradient(top, #5F5F5F, #1F1F1F);
+  -webkit-box-shadow: 0 0 1em rgba(0, 0, 0, 1);
+  -moz-box-shadow: 0 0 1em rgba(0, 0, 0, 1);
+  box-shadow: 0 0 1em rgba(0, 0, 0, 1);
+}
+
 #top nav a {
   background-color: #4F4F4F;
   color: #DFDFDF;
   border-color: #3F3F3F;
   text-shadow: 0 -0.09em 0 #000000;
-
   background: -webkit-linear-gradient(top, #5F5F5F, #1F1F1F);
   background: -moz-linear-gradient(top, #5F5F5F, #1F1F1F);
   background: linear-gradient(top, #5F5F5F, #1F1F1F);
-
   -webkit-box-shadow: 0 0.09em 0.09em #7F7F7F inset;
   -moz-box-shadow: 0 0.09em 0.09em #7F7F7F inset;
   box-shadow: 0 0.09em 0.09em #7F7F7F inset;
 }
 
 #top nav a:hover {
-  background-color: #5F5F5F;
-
-  background: -webkit-linear-gradient(top, #1F1F1F, #5F5F5F);
-  background: -moz-linear-gradient(top, #1F1F1F, #5F5F5F);
-  background: linear-gradient(top, #1F1F1F, #5F5F5F);
+  background: #5F5F5F;
 }
 
 #top nav a:active {
   background: #3F3F3F;
-
   -webkit-box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
   -moz-box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
   box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
 }
 
-#logo {
-  display: block;
-  position: absolute;
-  width: 6em;
+#logo span {
   color: #7F7F7F;
-  font-size: 2.5em;
-  font-weight: bold;
-  line-height: 100%;
-  padding-left: 1.75em;
-  padding-bottom: 0.15em;
   text-shadow: 0 -0.025em 0.025em #BFBFBF, 0 0.025em 0.025em #000000;
-  background: left no-repeat url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iCiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPCEtLSBDb3B5cmlnaHQgKEMpIDIwMTEgTWFyayBDb25zdGFibGUgKG1jQG5vZGFsaXR5Lm9yZykgTGljZW5zZTpBR1BMdjMgLS0+CjxzdmcgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIgogdmlld0JveD0iMCAwIDMyIDE4IgogcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pbllNaW4gbWVldCIKIGlkPSJmYXZpY29uc3ZnIj4KICA8cG9seWdvbiBwb2ludHM9IjIxLDE3IDIxLDEgIDI5LDkiIHN0eWxlPSJmaWxsOiNkZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMTtzdHJva2UtbGluZWpvaW46cm91bmQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKC01LDApIiAvPgogIDxwb2x5Z29uIHBvaW50cz0iMjMsOSAgMTUsMTcgMTUsMSIgc3R5bGU9ImZpbGw6I2ZmYmYwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4xO3N0cm9rZS1saW5lam9pbjpyb3VuZCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTMsMCkiIC8+CiAgPHBvbHlnb24gcG9pbnRzPSIxNyw5ICAgOSwxNyAgOSwxIiBzdHlsZT0iZmlsbDojMWY3ZmRmO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjE7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMSwwKSIgLz4KPC9zdmc+Cg==);
 }
 
 #mid {
-  position: relative;
-  top: -24em;
-  z-index: 1;
-
-  -webkit-transition: all 1s ease-in-out;
-  -moz-transition: all 1s ease-in-out;
-  -ms-transition: all 1s ease-in-out;
-  -o-transition: all 1s ease-in-out;
-  transition: all 1s ease-in-out;
-}
-
-#editor-panel {
   background-color: #FFFFFF;
   border-color: #CFCFCF;
-  border-style: solid;
-  border-width: 0.075em;
-  border-radius: 0.6em;
-  padding: 0.5em 1.5em;
-  margin-bottom: 1em;
-  height: 22em;
-
-  -webkit-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-  -moz-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
 }
 
-#editor-panel > div {
-  height: 19em;
+#top nav a.current, nav a.current {
+  color: #EF0000;
 }
-
-#view {
-  min-height: 16em;
-  background-color: #FFFFFF;
-  border-color: #CFCFCF;
-  border-style: solid;
-  border-width: 0.075em;
-  border-radius: 0.6em;
-  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-  padding: 1em 1.5em;
-  margin-bottom: 1em;
-}
-
-#mid.show { top: 0; }
-.large { font-size: 140%; }
-.dark { background-color: #3F3F3F; }
-#top nav a.current, nav a.current { color: #EF0000; }
 
     </style>
     <script>
 
-function $(id) {
-  return document.getElementById(id);
-}
-
-function html_encode(str) {
-  return str.replace(/[&<>"']/g, function($0) {
-    return "&" + {"&":"amp", "<":"lt", ">":"gt", '"':"quot", "'":"#39"}[$0] + ";";
-  });
-}
-
-function markup() {
-  $('view').innerHTML = marked($('editor').value)
-}
-
-function html() {
-  $('view').innerHTML = '<textarea>'+
-    html_encode(marked($('editor').value)) +'</textarea>';
-}
-
-function json() {
-  $('view').innerHTML = '<textarea>'+
-    JSON.stringify(marked.lexer($('editor').value), null, 2) +'</textarea>';
-}
-
-function edit() {
-  alert($('view').innerHTML);
-}
-
-function help() {
-  $('view').innerHTML = '<textarea>'+
-    $('help').innerHTML.toString() +'</textarea>';
-}
-
-function clearit() {
-  $('view').innerHTML = '';
-  $('editor').value = '# Hello World\n';
-  localStorage.removeItem('markup');
-}
-
-function save() {
-  localStorage.setItem('markup', $('editor').value);
-}
-
-function editor(me) {
-  $('mid').classList.toggle('show');
-  me.classList.toggle('current');
-}
-
-function large(me) {
-  document.body.classList.toggle('large');
-  me.classList.toggle('current');
-}
-
-function dark(me) {
-  document.body.classList.toggle('dark');
-  me.classList.toggle('current');
-}
-
-function get(url, target) {
-  target = target || 'view';
-  script = "";
-  var x = new XMLHttpRequest();
-  x.onreadystatechange = function() {
-    if (x.readyState == 4 && x.status == 200) {
-      $(target).innerHTML = url.match(/\.md$/)
-        ? marked(x.responseText) : x.responseText;
-      runScripts($(target));
-    }
-  }
-  x.open('GET', url, true); x.send();
-}
-
-function runScripts(e) {
-  if (e.nodeType != 1) return;
-  if (e.tagName.toLowerCase() == 'script') {
-    eval(e.text);
-  } else {
-    var n = e.firstChild;
-    while (n) {
-      if (n.nodeType == 1) runScripts(n);
-      n = n.nextSibling;
-    }
-  }
-}
-
 window.onload = function() {
-  if (localStorage.getItem('markup')) {
-    $('editor').value = localStorage.getItem('markup');
+
+  var id = function(id) { return document.getElementById(id); };
+
+  var html_encode = function(str) {
+    return str.replace(/[&<>"']/g, function($0) {
+      return "&" + {"&":"amp", "<":"lt", ">":"gt", '"':"quot", "'":"#39"}[$0] + ";";
+    });
+  };
+
+  id('store').onclick = function() {
+    localStorage.setItem('stored', id('text').value);
+    return false;
+  };
+
+  id('clear').onclick = function () {
+    localStorage.clear();
+    id('view').innerHTML = '# Hello World';
+    return false;
+  };
+
+  id('show').onclick = function () {
+    id('view').innerHTML = marked(id('text').value);
+    return false;
+  };
+
+  id('edit').onclick = function() {
+    id('text').value = localStorage.getItem('stored')
+      ? localStorage.getItem('stored') : '# Hello World';
+    id('area').classList.toggle('hidden');
+    id('edit').classList.toggle('current');
+    return false;
+  };
+
+  id('html').onclick = function() {
+    id('view').innerHTML = '<pre>' +
+      html_encode(marked(id('text').value)) + '</pre>';
+    return false;
+  };
+
+  id('json').onclick = function() {
+    id('view').innerHTML = '<pre>' +
+      JSON.stringify(marked.lexer(id('text').value), null, 2) + '</pre>';
+    return false;
+  };
+
+  id('help').onclick = function() {
+    id('view').innerHTML = '<pre>' +
+      id('markdown').innerHTML.toString() + '</pre>';
+    return false;
+  };
+
+  id('readme').onclick = function() {
+    get('/README.md');
+    return false;
+  };
+
+  var get = function(url, target) {
+    target = target || 'view';
+    var x = new XMLHttpRequest();
+    x.onreadystatechange = function() {
+      if (x.readyState == 4 && x.status == 200) {
+        id(target).innerHTML = url.match(/\.md$/)
+          ? marked(x.responseText) : x.responseText; }}
+    x.open('GET', url, true); x.send();
+    return false;
   }
-  get('README.md');
-}
+
+  if (localStorage.getItem('stored')) {
+    id('text').innerHTML = localStorage.getItem('stored');
+    id('view').innerHTML = marked(localStorage.getItem('stored'));
+  } else {
+    get('README.md');
+  }
+};
 
     </script>
    </head>
-  <body class="">
+  <body>
     <header id="top">
-      <a id="logo" href="/">Markup</a>
+      <a id="logo" href="/">
+        <img src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
+        <span>Markup</span>
+      </a>
       <nav>
-        <a href="" onclick="alert('TODO'); return false;">Menu&nbsp;&nbsp;&#9654;</a>
-        <a href="" onclick="editor(this); return false;">Editor</a>
-        <a href="" onclick="get('/lib/htm/help.htm'); return false;">Help</a>
-        <a href="" onclick="large(this); return false;">Large</a>
-        <a href="" onclick="dark(this); return false;">Dark</a>
-        <a href="https://github.com/markc/markup">Github</a>
+        <a href="" id="show">SHOW</a>
+        <a href="" id="edit">EDIT</a>
+        <a href="" id="html">HTML</a>
+        <a href="" id="json">JSON</a>
+        <a href="" id="help">HELP</a>
+        <a href="" id="store">STORE</a>
+        <a href="" id="clear">CLEAR</a>
+        <a href="" id="readme">README</a>
+        <a href="https://github.com/markc/markup">SOURCE</a>
       </nav>
     </header>
-    <div id="mid">
-      <section id="editor-panel">
-        <nav>
-          <a href="" onclick="markup(); return false;">Markup</a>
-          <a href="" onclick="html(); return false;">HTML</a>
-          <a href="" onclick="json(); return false;">JSON</a>
-          <a href="" onclick="save(); return false;">Save</a>
-          <a href="" onclick="clearit(); return false;">Clear</a>
-        </nav>
-        <div>
-          <textarea id="editor"># Hello World</textarea>
-        </div>
-      </section>
-      <section id="view" contextmenu="mymenu"  contenteditable="true">
-      </section>
-    </div>
+    <section id="mid">
+      <div id="area" class="hidden">
+        <textarea id="text"></textarea>
+      </div>
+      <div id="view"></div>
+    </section>
     <footer>
       <a href="http://validator.w3.org/check?uri=referer" title="Validate This Page">
         Copyright &copy; 2007-2012 Mark Constable (AGPLv3)
       </a>
     </footer>
-    <p contextmenu="supermenu">This paragraph has a context menu called "supermenu" attached.</p>
+    <pre id="markdown" class="hidden">
+Markdown Help
+=============
 
-    <menu id="supermenu">
-      <command label="Step 1: Write Tutorial" onclick="doSomething()">
-      <command label="Step 2: Edit Tutorial" onclick="doSomethingElse()">
-    </menu>
+Paragraphs of text separated by blank lines are enclosed in `p`
+tags but the underlying text remains wrapped with the original
+line breaks. Copy and paste this markdown text into the editor
+to see it marked up.
 
-    <menu type="context" id="mymenu">
-      <menuitem label="Refresh Post" onclick="window.location.reload();" icon="/images/refresh-icon.png"></menuitem>
-      <menuitem label="Skip to Comments" onclick="window.location='#comments';" icon="/images/comment_icon.gif"></menuitem>
-      <menu label="Share on..." icon="/images/share_icon.gif">
-        <menuitem label="Twitter" icon="/images/twitter_icon.gif" onclick="goTo('//twitter.com/intent/tweet?text=' + document.title + ':  ' + window.location.href);"></menuitem>
-        <menuitem label="Facebook" icon="/images/facebook_icon16x16.gif" onclick="goTo('//facebook.com/sharer/sharer.php?u=' + window.location.href);"></menuitem>
-      </menu>
-    </menu>
+# h1 header tag
+## h2 header tag
+### h3 header tag
+###### h6 header tag
+
+*Italic text and * _more italic text_
+
+**Bold text and ** __more Bold text__
+
+*Italic **and** bold can be combined*
+
+* Item 1 of an unordered list
+* Item 2
+  - Item 2a
+  - Item 2b
+
+*   **Item 3**
+
+    If you indent extra paragraphs by 3 or 4 spaces then this
+    text will be wrapped by `p` tags within the list item.
+
+    Lists need something that starts at the begining of a new
+    line to separate a list from whatever follows so we'll use
+    a horizontal rule.
+
+----
+
+1. Item 1 of an ordered list
+2. Item 2
+    - Indented four spaces.
+        + indented eight spaces.
+    - Four spaces again.
+3. Item 3
+   * Item 3a
+   * Item 3b
+
+This plain http://google.com link is not marked up but this
+inline [Google](http://google.com "Search The Web") link is. Here
+is a reference-style link; [Check out GitHub][1] where the link
+definition can be anywhere on the page but must be unique. If
+there is no trailing link reference then the link tag itself can
+be used for the reference, for example, [Youtube!] rocks. Links
+and email addresses can also be enclosed in angle brackets to
+provide simple inline markup.
+
+  [1]: https://github.com/
+  [Youtube!]: http://www.youtube.com/
+
+Here is an image: ![This is Alt text](/favicon.ico "favicon.ico")
+
+> Blockquotes use traditional email style angle brackets and can
+> **include markup**.
+>
+> > You can even have nested blockquotes.
+
+This is an example of `inline code` using backticks.
+
+    // Code is just text indented by 4 spaces
+    // Any markdown text or HTML will remain untouched
+
+    function hello(str) {
+      return "**Hello** " + (str||"_World_");
+    }
+
+And finally, if you need to do something that Markdown can't
+handle then you can always just use HTML, however, block element
+begin and end tags cannot be indented and must be separated by
+blank lines. Span-level HTML can include markup but any
+block-level markup will be ignored.
+    </pre>
 
     <script src="https://raw.github.com/chjj/marked/master/lib/marked.js"></script>
+    <!-- <script src="/lib/js/marked.js"></script> -->
   </body>
 </html>

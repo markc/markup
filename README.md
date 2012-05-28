@@ -1,21 +1,21 @@
-Markup
-======
+Markup README
+=============
 
 ###### Copyright &copy; 2012 Mark Constable, License: [AGPLv3]
 
-This simple project is a single file HTML5/CSS3 [MarkupTest] page
-that provides a minimal editor and markup preview system with a
-few interesting features:
+This simple project is a single file HTML5/CSS3 [Markup] page that
+provides a minimal editor and markup preview system with a few
+interesting features:
 
-* a single self contained page, just wget [index.html]
-* example of including marked.js directly from its Github repo
-* example live site taking advantage of Githubs gh-pages branch
-* minimal HTML5/CSS3 page template for any purpose
+* a single self contained ~12KB page, just wget [index.html]
+* only depends are [marked.js] from Github, README.md, favicon.ico
+* minimal modern HTML5/CSS3 page template for any purpose
 * an ultra simple AJAX GET function that does not require jQuery
-* example of using localStorage() to save the editor contents
+* example of including marked.js directly from its Github repo
+* example [live site] taking advantage of Githubs gh-pages branch
+* example of using localStorage() to store the editor contents
 * example of using [QtCreator] generic project files
-* dynamic CSS pagesize using `body {font-size: 100%;}`
-* CSS3 rollover link "buttons" and body pagesize transition
+* dynamic CSS page resize using only `body {font-size: xxx%;}`
 * won't work with older versions of IE (yes, that's a feature)
 
 How To Setup Github Project Pages
@@ -59,10 +59,10 @@ gh-pages branch.
 
 Remember to always switch back to the master branch to make
 changes so the above just becomes a slightly tedious but trouble
-free procedure. You can always set up shell alias to make the
-above a simple procedure and in this example the first `git push`
-stage will pull up your configured editor (ie; echo $EDITOR) to
-add the commit message...
+free procedure. You can always set up shell alias to simplfy this
+procedure and in this example below the first `git push` stage
+will pull up your configured editor (ie; echo $EDITOR) to add the
+commit message...
 
     alias gh='\
       git commit -a && \
@@ -74,10 +74,10 @@ add the commit message...
 
 Of course managing this repo via QtCreator will still require
 manual mouse twiddling unless the above is converted to an
-external command via `Tools -> External`. Using QtCreator to save
-changes and then `Tools -> Git -> Commit` to provide the commit
-message is reasonable so an external command to just manage the
-push and pull actions is all that is needed...
+external command and used via `Tools -> External`. Using QtCreator
+to save changes and then `Tools -> Git -> Commit` to provide the
+commit message is reasonable so an external command to just manage
+the push and pull actions is all that is needed...
 
     alias se='sudo nano -t -x -c'
     se /usr/bin/gh-pages
@@ -105,12 +105,15 @@ After making changes and adding a commit message just use...
     instead of
     Tools -> Git -> Push (... and the other steps)
 
+Now we have a truly cross-platform and totally free GUI programmers
+editor and version controlled website (or code) management system.
 
 [AGPLv3]: http://www.gnu.org/licenses/agpl.html
 [Showdown]: https://github.com/coreyti/showdown
 [Markdown]: http://daringfireball.net/projects/markdown
 [index.html]: http://markc.github.com/markup/index.html
 [pages.github.com]: http://pages.github.com
-[marked]: https://github.com/chjj/marked
-[MarkupTest]: http://markc.github.com/markup
+[marked.js]: https://github.com/chjj/marked
+[Markup]: http://markc.github.com/markup
+[live site]: http://markc.github.com/markup
 [QtCreator]: http://qt-project.org/wiki/Qt_Creator_Releases
