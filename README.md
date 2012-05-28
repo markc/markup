@@ -24,6 +24,41 @@ tag then look for the `font-size: 100%` setting, click on it, and
 change it anywhere from `50%` to `500%` and note how every element
 on the page auto resizes accordingly.
 
+Usage
+-----
+
+#### HELP
+[Markdown] format help. Copy and paste sections into the editor to
+see how the Markdown examples look when rendered into HTML
+
+#### EDIT
+Shows a simple plain textarea editor, add any valid markdown text
+and click SHOW to see it marked up
+
+#### SHOW
+Shows the marked up HTML version of whatever is in the editor
+
+#### HTML
+Shows the raw HTML version of the marked up text
+
+#### JSON
+Shows the intermediate `Json` format from [marked.js]
+
+#### STORE
+Stores whatever is in the editor to localStorage so that a full
+page refresh still contains the last edits
+
+#### CLEAR
+Clears the localStorage facility
+
+#### README
+Shows and marks up any README.md in the same folder as index.html,
+compare to the original [Github GFM] [Markup]
+
+#### SOURCE
+The Github based source project
+
+
 How To Setup Github Project Pages
 ---------------------------------
 
@@ -120,6 +155,7 @@ editor and version controlled website (or code) management system.
 [index.html]: http://markc.github.com/markup/index.html
 [pages.github.com]: http://pages.github.com
 [marked.js]: https://github.com/chjj/marked
-[Markup]: http://markc.github.com/markup
+[Markup]: http://github.com/markc/markup
 [live site]: http://markc.github.com/markup
 [QtCreator]: http://qt-project.org/wiki/Qt_Creator_Releases
+[Github GFM]: http://github.github.com/github-flavored-markdown/

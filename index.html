@@ -321,8 +321,9 @@ window.onload = function() {
 
   // link event handlers
 
-  id('show').onclick = function () {
-    id('view').innerHTML = marked(id('text').value);
+  id('help').onclick = function() {
+    id('view').innerHTML = '<pre>' +
+      id('markdown').innerHTML.toString() + '</pre>';
     return false;
   };
 
@@ -331,6 +332,11 @@ window.onload = function() {
       ? localStorage.getItem('stored') : '# Hello World';
     id('area').classList.toggle('hidden');
     id('edit').classList.toggle('current');
+    return false;
+  };
+
+  id('show').onclick = function () {
+    id('view').innerHTML = marked(id('text').value);
     return false;
   };
 
@@ -343,12 +349,6 @@ window.onload = function() {
   id('json').onclick = function() {
     id('view').innerHTML = '<pre>' +
       JSON.stringify(marked.lexer(id('text').value), null, 2) + '</pre>';
-    return false;
-  };
-
-  id('help').onclick = function() {
-    id('view').innerHTML = '<pre>' +
-      id('markdown').innerHTML.toString() + '</pre>';
     return false;
   };
 
@@ -388,11 +388,11 @@ window.onload = function() {
         <span>Markup</span>
       </a>
       <nav>
-        <a href="" id="show">SHOW</a>
+        <a href="" id="help">HELP</a>
         <a href="" id="edit">EDIT</a>
+        <a href="" id="show">SHOW</a>
         <a href="" id="html">HTML</a>
         <a href="" id="json">JSON</a>
-        <a href="" id="help">HELP</a>
         <a href="" id="store">STORE</a>
         <a href="" id="clear">CLEAR</a>
         <a href="" id="readme">README</a>
