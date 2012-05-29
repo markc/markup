@@ -3,13 +3,22 @@ Markup README
 
 ###### Copyright &copy; 2012 Mark Constable, License: [AGPLv3]
 
-This simple project is a single file HTML5/CSS3 [Markup] page
-that provides a minimal editor and [Markdown] preview system with
-a few interesting features:
+This very simple project is mainly comprised of a [HTML5], [CSS3]
+and [Javascript] single page interface ([SPI]) file that provides
+an embedded [Markdown] editor and preview system. It's meant to be
+used as a template for a new site but it is also somewhat useful
+in its own right to edit and preview Markdown formatted text. It
+can also store a working copy in [localStorage] so it's available
+the next time you visit the page. Perhaps the most interesting
+feature is how it can markup [Markdown] formatted test dynamically
+within the browser. This [README.md] is an example of it doing
+just that.
+
+To summarize a few interesting features:
 
 * a single self contained ~12KB page, just wget or copy [index.html]
 * only depends are [marked.js] from Github, README.md, favicon.ico
-* minimal modern HTML5/CSS3 page template for any purpose
+* minimal modern HTML5, CSS3 and JS page template for any purpose
 * an ultra simple AJAX GET function that does not require jQuery
 * example of including marked.js directly from its Github repo
 * example [live site] taking advantage of Githubs gh-pages branch
@@ -159,3 +168,9 @@ editor and version controlled website (or code) management system.
 [live site]: http://markc.github.com/markup
 [QtCreator]: http://qt-project.org/wiki/Qt_Creator_Releases
 [Github GFM]: http://github.github.com/github-flavored-markdown/
+[SPI]: http://en.wikipedia.org/wiki/Single-page_application
+[HTML5]: http://en.wikipedia.org/wiki/HTML5
+[CSS3]: http://en.wikipedia.org/wiki/CSS3#CSS_3
+[Javascript]: http://en.wikipedia.org/wiki/Javascript
+[README.md]: README.md
+[localStorage]: http://en.wikipedia.org/wiki/LocalStorage

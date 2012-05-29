@@ -9,15 +9,18 @@
 /* layout, start with resetus maximus */
 
 * {
-  background-color: inherit;
-  color: inherit;
   border: none;
   font-family: "Arial", sans-serif;
   font-size: 100%;
   line-height: 160%;
-  margin: 0;
+  margin: 0em;
   outline: none;
-  padding: 0;
+  padding: 0em;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 
 html {
@@ -29,9 +32,6 @@ body {
   margin: 2.6em auto;
   overflow-y: scroll;
   width: 54em;
-  font-family: Arial, sans-serif;
-  font-size: 100%;
-  line-height: 160%;
 }
 
 h1 { font-size: 200%; }
@@ -67,20 +67,17 @@ blockquote p {
   font-style: italic;
 }
 
-code {
+code, tt {
+  border-style: solid;
+  border-radius: 0.3em;
+  border-width: 0.075em;
   font-family: monospace;
-  font-weight: bold;
+  margin: 0 0.1em;
+  padding: 0 0.3em;
 }
 
 a {
   text-decoration: none;
-}
-
-#text {
-  font-family: monospace;
-  height: 10em;
-  margin-top: 0.5em;
-  width: 100%;
 }
 
 pre, #area {
@@ -90,10 +87,12 @@ pre, #area {
   font-family: monospace;
   overflow: auto;
   padding: 0.5em 1em;
+}
 
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
+pre > code {
+  border: none;
+  margin: 0em;
+  padding: 0em;
 }
 
 hr {
@@ -102,7 +101,7 @@ hr {
 }
 
 nav {
-  padding: 0.65em 0em;
+  margin: 0.675em 0em;
   text-align: center;
 }
 
@@ -126,7 +125,6 @@ footer a {
 
 #top {
   left: 0;
-  height: 3em;
   position: fixed;
   top: 0;
   width: 100%;
@@ -163,6 +161,13 @@ footer a {
   margin-bottom: 1em;
 }
 
+#text {
+  font-family: monospace;
+  height: 10em;
+  margin-top: 0.5em;
+  width: 100%;
+}
+
 .hidden { display: none; }
 
 /* colors */
@@ -178,6 +183,11 @@ h2 {
 
 blockquote p {
   color: #5F5F5F;
+}
+
+code, tt {
+  border-color: #EBEBEB;
+  background-color: #F7F7F7;
 }
 
 a {
@@ -200,9 +210,6 @@ pre, #area {
   -webkit-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
 }
 
 pre:hover, #area:hover {
@@ -268,7 +275,7 @@ footer a {
 }
 
 #top nav a:hover {
-  background: #5F5F5F;
+  background: #2F2F2F;
 }
 
 #top nav a:active {
@@ -380,6 +387,10 @@ window.onload = function() {
 
 };
     </script>
+<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+<![endif]-->
   </head>
   <body>
     <header id="top">
