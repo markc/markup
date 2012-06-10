@@ -10,7 +10,7 @@ used as a template for a new site but it is also somewhat useful
 in its own right to edit and preview Markdown formatted text. It
 can also store a working copy in [localStorage] so it's available
 the next time you visit the page. Perhaps the most interesting
-feature is how it can markup [Markdown] formatted test dynamically
+feature is how it can markup [Markdown] formatted text dynamically
 within the browser. This [README.md] is an example of it doing
 just that.
 

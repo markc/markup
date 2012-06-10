@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta name="author" content="(C) 2012 Mark Constable (AGPLv3)">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1.0" name="viewport">
+    <meta content="(C) 2012 Mark Constable (AGPLv3)" name="author">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
     <title>Markup</title>
     <style>
 
@@ -10,7 +13,7 @@
 
 * {
   border: none;
-  font-family: "Arial", sans-serif;
+  font-family: "Open Sans Condensed", sans-serif;
   font-size: 100%;
   line-height: 160%;
   margin: 0em;
@@ -34,9 +37,9 @@ body {
   width: 54em;
 }
 
-h1 { font-size: 200%; }
-h2 { font-size: 150%; }
-h3 { font-size: 120%; }
+h1 { font-size: 160%; }
+h2 { font-size: 130%; }
+h3 { font-size: 110%; }
 h4 { font-size: 100%; }
 h5 { font-size: 90%; }
 h6 { font-size: 75%; }
@@ -389,7 +392,6 @@ window.onload = function() {
     </script>
 <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
 <![endif]-->
   </head>
   <body>
@@ -398,7 +400,7 @@ window.onload = function() {
         <img alt="Markup LOGO" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
         <span>Markup</span>
       </a>
-      <nav>
+      <nav id="nav">
         <a href="" id="help">HELP</a>
         <a href="" id="edit">EDIT</a>
         <a href="" id="show">SHOW</a>
@@ -416,7 +418,7 @@ window.onload = function() {
       </div>
       <div id="view"></div>
     </section>
-    <footer>
+    <footer id="end">
       <a href="http://validator.w3.org/check?uri=referer" title="Validate This Page">
         Copyright &copy; 2007-2012 Mark Constable (AGPLv3)
       </a>
