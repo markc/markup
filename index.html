@@ -381,7 +381,7 @@ window.onload = function() {
   }
 
   window.onpopstate = function(e) {
-    get('/lib/htm' + location.pathname + '.htm');
+    get('lib/htm' + location.pathname + '.htm');
   }
 
   // link event handlers
@@ -421,7 +421,7 @@ window.onload = function() {
     var p = e.target.pathname;
     document.title = p;
     history.pushState({id:p.replace(/(\/|\.|-)/g,'_')}, '', p);
-    get('/lib/htm' + p + '.htm');
+    get('lib/htm' + p + '.htm');
     return false;
   };
 
