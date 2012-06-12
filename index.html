@@ -6,7 +6,7 @@
     <meta content="width=device-width,initial-scale=1.0" name="viewport">
     <meta content="(C) 2012 Mark Constable (AGPLv3)" name="author">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-    <title>Markup</title>
+    <title id="title">Markup</title>
     <style>
 
 /* layout, start with resetus maximus */
@@ -303,10 +303,36 @@ footer a {
   color: #EF0000;
 }
 
-    </style>
+#top nav#editor_menu, #top nav#states_menu {
+  text-align: center;
+  clear: both;
+  position: absolute;
+  width: 8em;
+  top: 2.5em;
+  right: 0em;
+}
+
+#top nav#editor_menu a, #top nav#states_menu a {
+  background-color: #2F2F2F;
+  margin: 0.25em 0;
+  display: block;
+}
+
+img.sml {
+  float: right;
+  border: 0.25em solid #7F7F7F;
+  border-radius: 0.25em;
+  margin-left: 0.5em;
+  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.75);
+}
+  </style>
     <script>
 
 window.onload = function() {
+
+  // globals
+
+  var current_url = '';
 
   // support functions
 
@@ -318,18 +344,52 @@ window.onload = function() {
     });
   };
 
+  var htm = function(str, target) {
+    id('text').value = str;
+    var json = /\s*<json>\s*([\s\S]*)\s*<\/json>\s*/mgi.exec(str);
+    if (json instanceof Array && typeof json[1] === 'string') {
+      var text = /<json>[\s\S]*<\/json>\s*([\s\S]*)\s*$/mgi.exec(str);
+      if (text instanceof Array && typeof text[1] === 'string') {
+        id(target).innerHTML = marked(text[1]);
+      }
+      var o = JSON.parse(json[1]);
+      Object.keys(o).forEach(function(k) { id(k).innerHTML = o[k]; });
+    } else {
+      id(target).innerHTML = marked(str);
+    }
+  }
+
   var get = function(url, target) {
     target = target || 'view';
-    var x = new XMLHttpRequest();
-    x.onreadystatechange = function() {
-      if (x.readyState == 4 && x.status == 200) {
-        id(target).innerHTML = url.match(/\.md$/)
-          ? marked(x.responseText) : x.responseText; }}
-    x.open('GET', url, true); x.send();
-    return false;
+    var cached = localStorage.getItem(url);
+    if (cached) {
+      current_url = url;
+      htm(cached, target);
+      return false;
+    } else {
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          current_url = url;
+          localStorage.setItem(url, xhr.responseText);
+          htm(xhr.responseText, target);
+          return false;
+        }
+      }
+      xhr.open('GET', url, true); xhr.send();
+    }
+  }
+
+  window.onpopstate = function(e) {
+    get('/lib/htm' + location.pathname + '.htm');
   }
 
   // link event handlers
+
+  id('readme').onclick = function() {
+    get('README.md');
+    return false;
+  };
 
   id('help').onclick = function() {
     id('view').innerHTML = '<pre>' +
@@ -337,16 +397,42 @@ window.onload = function() {
     return false;
   };
 
+  id('editor').onclick = function() {
+    if (id('states').classList.contains('current'))
+      id('states').classList.remove('current');
+    if (!id('states_menu').classList.contains('hidden'))
+      id('states_menu').classList.add('hidden');
+    id('editor').classList.toggle('current');
+    id('editor_menu').classList.toggle('hidden');
+    return false;
+  };
+
+  id('states').onclick = function() {
+    if (id('editor').classList.contains('current'))
+      id('editor').classList.remove('current');
+    if (!id('editor_menu').classList.contains('hidden'))
+      id('editor_menu').classList.add('hidden');
+    id('states').classList.toggle('current');
+    id('states_menu').classList.toggle('hidden');
+    return false;
+  };
+
+  id('states_menu').onclick = function(e) {
+    var p = e.target.pathname;
+    document.title = p;
+    history.pushState({id:p.replace(/(\/|\.|-)/g,'_')}, '', p);
+    get('/lib/htm' + p + '.htm');
+    return false;
+  };
+
   id('edit').onclick = function() {
-    id('text').value = localStorage.getItem('stored')
-      ? localStorage.getItem('stored') : '# Hello World';
     id('area').classList.toggle('hidden');
     id('edit').classList.toggle('current');
     return false;
   };
 
   id('show').onclick = function () {
-    id('view').innerHTML = marked(id('text').value);
+    htm(id('text').value, 'view');
     return false;
   };
 
@@ -363,27 +449,51 @@ window.onload = function() {
   };
 
   id('store').onclick = function() {
-    localStorage.setItem('stored', id('text').value);
+    localStorage.setItem(current_url, id('text').value);
+    htm(id('text').value, 'view');
     return false;
   };
 
-  id('clear').onclick = function () {
-    localStorage.clear();
-    id('text').value = '# Hello World';
+  id('remove').onclick = function () {
+    if (localStorage.getItem(current_url))
+      localStorage.removeItem(current_url);
+    current_url = '';
+    id('text').value = '';
     id('view').innerHTML = '';
+    id('area').classList.add('hidden');
+    id('edit').classList.remove('current');
     return false;
   };
 
-  id('readme').onclick = function() {
+  id('print').onclick = function () {
+    if (localStorage.length) {
+      var l = localStorage.length;
+      var a = ['<pre>'];
+      for(var i=0; i < l; i++) {
+        a.push('\n' + localStorage.key(i));
+        a.push('----------------------------------------------------------------');
+        a.push(html_encode(localStorage.getItem(localStorage.key(i))));
+      }
+      id('view').innerHTML = a.join("\n") + '</pre>';
+    }
+    return false;
+  };
+
+  id('flush').onclick = function () {
+    localStorage.clear();
+    id('text').value = '';
+    id('view').innerHTML = '';
+    id('area').classList.add('hidden');
+    id('edit').classList.remove('current');
     get('README.md');
     return false;
   };
 
   // live code active on page (re)load
 
-  if (localStorage.getItem('stored')) {
-    id('text').value = localStorage.getItem('stored');
-    id('view').innerHTML = marked(localStorage.getItem('stored'));
+  if (localStorage.getItem('README.md')) {
+    id('text').value = localStorage.getItem('README.md');
+    id('view').innerHTML = marked(localStorage.getItem('README.md'));
   } else {
     get('README.md');
   }
@@ -397,25 +507,41 @@ window.onload = function() {
   <body>
     <header id="top">
       <a id="logo" href="">
-        <img alt="Markup LOGO" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
-        <span>Markup</span>
+        <img id="logo_img" alt="Markup LOGO" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
+        <span id="logo_txt">Markup</span>
       </a>
       <nav id="nav">
-        <a href="" id="help">HELP</a>
+        </a>
+        <a href="" id="readme">README</a>
+        <a href="" id="editor">EDITOR</a>
+        <a href="" id="states">STATES</a>
+        <a href="https://github.com/markc/markup">SOURCE</a>
+      </nav>
+      <nav id="editor_menu" class="hidden">
         <a href="" id="edit">EDIT</a>
         <a href="" id="show">SHOW</a>
         <a href="" id="html">HTML</a>
         <a href="" id="json">JSON</a>
+        <a href="" id="help">HELP</a>
         <a href="" id="store">STORE</a>
-        <a href="" id="clear">CLEAR</a>
-        <a href="" id="readme">README</a>
-        <a href="https://github.com/markc/markup">SOURCE</a>
+        <a href="" id="remove">REMOVE</a>
+        <a href="" id="print">PRINT</a>
+        <a href="" id="flush">FLUSH</a>
+      </nav>
+      <nav id="states_menu" class="hidden">
+        <a href="1">New South Wales</a>
+        <a href="2">Queensland</a>
+        <a href="3">South Australia</a>
+        <a href="4">Tasmania</a>
+        <a href="5">Victoria</a>
+        <a href="6">Western Australia</a>
       </nav>
     </header>
     <section id="mid">
       <div id="area" class="hidden">
         <textarea id="text"></textarea>
       </div>
+      <aside id="sidebar"></aside>
       <div id="view"></div>
     </section>
     <footer id="end">
