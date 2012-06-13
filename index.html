@@ -361,6 +361,12 @@ window.onload = function() {
 
   var get = function(url, target) {
     target = target || 'view';
+    if (url.match(/^\/\S+\/\d+$/)) {
+      var tmp = /^(.+)(\/\d+$)/.exec(url);
+      url = tmp[1] + '/lib/htm' + tmp[2] + '.htm';
+    } else if (url.match(/\/\d+$/)) {
+      url = '/lib/htm' + url + '.htm';
+    }
     var cached = localStorage.getItem(url);
     if (cached) {
       current_url = url;
@@ -381,7 +387,7 @@ window.onload = function() {
   }
 
   window.onpopstate = function(e) {
-    get('lib/htm' + location.pathname + '.htm');
+    if (e.state !== null) get(location.pathname);
   }
 
   // link event handlers
@@ -421,7 +427,7 @@ window.onload = function() {
     var p = e.target.pathname;
     document.title = p;
     history.pushState({id:p.replace(/(\/|\.|-)/g,'_')}, '', p);
-    get('lib/htm' + p + '.htm');
+    get(p);
     return false;
   };
 
@@ -491,9 +497,10 @@ window.onload = function() {
 
   // live code active on page (re)load
 
-  if (localStorage.getItem('README.md')) {
-    id('text').value = localStorage.getItem('README.md');
-    id('view').innerHTML = marked(localStorage.getItem('README.md'));
+  var ls = localStorage.getItem('README.md');
+  if (ls) {
+    id('text').value = ls;
+    id('view').innerHTML = marked(ls);
   } else {
     get('README.md');
   }
