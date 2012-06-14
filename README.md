@@ -16,7 +16,7 @@ just that.
 
 To summarize a few interesting features:
 
-* a single self contained ~16KB page, just wget or copy [index.html]
+* a single self contained ~20KB page, just wget or copy [index.html]
 * only external depends are [marked.js] and the [Open Sans] font
 * minimal modern HTML5, CSS3 and JS page template for any purpose
 * an ultra simple AJAX GET function that does not require jQuery
