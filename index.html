@@ -173,6 +173,70 @@ footer a {
 
 .hidden { display: none; }
 
+
+
+a.thumbnail {
+  display: block;
+  text-align: center;
+}
+
+a.tree + div {
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+  height: 0em;
+}
+
+a.tree.open + div {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  height: auto;
+}
+
+a.tree {
+  display: block;
+  position: relative;
+  border-bottom-style: solid;
+  border-bottom-width: 0.075em;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  padding-left: 1.5em;
+}
+
+a.tree::before {
+  background: no-repeat left center url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iCiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4KPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiCiB2aWV3Qm94PSIwIDAgMTYgMTYiCiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IgogaWQ9ImRvd25zdmciPgo8cG9seWdvbiBwb2ludHM9IjcsNSA3LDExIDEwLDgiCiBzdHlsZT0iZmlsbDojN0Y3RjdGOyBzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC41Ii8+Cjwvc3ZnPgo=);
+  content: "";
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.5em; height: 1.5em;
+
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  transform: rotate(0deg);
+
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+a.tree.open::before {
+  content: "";
+  width: 1.5em; height: 1.5em;
+
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+#view div a.tree { margin-left: 1em; }
+#view div div a.tree { margin-left: 2em; }
+#view div div div a.tree { margin-left: 3em; }
+#view div div div div a.tree { margin-left: 4em; }
+#view div div div div div a.tree { margin-left: 5em; }
+#view div div div div div div a.tree { margin-left: 6em; }
+#view div div div div div div div a.tree { margin-left: 7em; }
+
 /* colors */
 
 body {
@@ -325,14 +389,33 @@ img.sml {
   margin-left: 0.5em;
   box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.75);
 }
-  </style>
+
+/* tree color */
+
+a.tree {
+  border-bottom-color: transparent;
+  text-shadow: #000000 0em 0.05em 0.05em;
+}
+
+a.tree:hover {
+  background-color: #F7F7F7;
+  color: #EF0000;
+}
+
+a.tree.open {
+  border-bottom-color: #E7E7E7;
+}
+
+</style>
     <script>
 
 window.onload = function() {
 
   // globals
 
-  var current_url = '';
+  var uri = '',
+      current_url = '',
+      current_path = '';
 
   // support functions
 
@@ -353,13 +436,19 @@ window.onload = function() {
         id(target).innerHTML = marked(text[1]);
       }
       var o = JSON.parse(json[1]);
-      Object.keys(o).forEach(function(k) { id(k).innerHTML = o[k]; });
+      Object.keys(o).forEach(function(k) {
+        if (k === 'script') {
+          eval(o[k]);
+        } else {
+          id(k).innerHTML = o[k];
+        }
+      });
     } else {
       id(target).innerHTML = marked(str);
     }
   }
 
-  var get = function(url, target) {
+  var get = function(url, target, callback) {
     target = target || 'view';
     if (url.match(/^\/\S+\/\d+$/)) {
       var tmp = /^(.+)(\/\d+$)/.exec(url);
@@ -371,6 +460,7 @@ window.onload = function() {
     if (cached) {
       current_url = url;
       htm(cached, target);
+      if (typeof callback === 'function') callback(target);
       return false;
     } else {
       var xhr = new XMLHttpRequest();
@@ -379,6 +469,7 @@ window.onload = function() {
           current_url = url;
           localStorage.setItem(url, xhr.responseText);
           htm(xhr.responseText, target);
+          if (typeof callback === 'function') callback(target);
           return false;
         }
       }
@@ -387,7 +478,21 @@ window.onload = function() {
   }
 
   window.onpopstate = function(e) {
-    if (e.state !== null) get(location.pathname);
+    if (e.state !== null) {
+      var state = e.state || {};
+      if ('id' in state) {
+        get(location.pathname, state.id, function() {
+          var el = id(state.id);
+          if (el.previousElementSibling.nodeName === 'A'
+          && el.previousElementSibling.classList.contains('tree')) {
+            if (el.previousElementSibling.classList.contains('open'))
+              el.previousElementSibling.classList.remove('open');
+            else
+              el.previousElementSibling.classList.add('open');
+          }
+        });
+      }
+    }
   }
 
   // link event handlers
@@ -495,14 +600,59 @@ window.onload = function() {
     return false;
   };
 
+  id('menu').onclick = function() {
+    get(current_path + '/markup/lib/htm/8.htm');
+    return false;
+  };
+
+  id('view').onclick = function(e) {
+    var t = e.target;
+    if (t.classList.contains('tree')) {
+      var i = t.pathname.replace(/(\/|\.|-)/g, '_').toLowerCase();
+      if (t.classList.contains('cached')) {
+        t.classList.toggle('open');
+      } else {
+        get(t.pathname, i, function(){
+          t.classList.toggle('open');
+          t.classList.add('cached');
+          return false;
+        })
+      }
+      document.title = t.pathname;
+      history.pushState({id:i}, '', t.pathname);
+      return false;
+    }
+  };
+
   // live code active on page (re)load
 
-  var ls = localStorage.getItem('README.md');
-  if (ls) {
-    id('text').value = ls;
-    id('view').innerHTML = marked(ls);
+  if (location.hash) {
+    uri = location.hash.replace(/^\#/, '');
+    location.replace(uri);
   } else {
-    get('README.md');
+    uri = location.pathname;
+  }
+
+  if (uri.match(/^\/\S+\/\d+$/)) {
+    var tmp = /^(.+)(\/\d+$)/.exec(uri);
+    current_path = tmp[1];
+    uri = tmp[1] + '/lib/htm' + tmp[2] + '.htm';
+  } else if (uri.match(/\/\d+$/)) {
+    var tmp2 = /^(.+)(\/\d+$)/.exec(uri);
+    uri = '/lib/htm' + uri + '.htm';
+  } else if (uri.match(/^\/\S+/)) {
+    current_path = location.pathname;
+    var uri = 'README.md';
+  } else {
+    var uri = 'README.md';
+  }
+
+  var cached = localStorage.getItem(uri);
+  if (cached) {
+    id('text').value = cached;
+    id('view').innerHTML = marked(cached);
+  } else {
+    get(uri);
   }
 
 };
@@ -518,10 +668,10 @@ window.onload = function() {
         <span id="logo_txt">Markup</span>
       </a>
       <nav id="nav">
-        </a>
+        <a href="" id="menu">MENU</a>
+        <a href="" id="states">STATES</a>
         <a href="" id="readme">README</a>
         <a href="" id="editor">EDITOR</a>
-        <a href="" id="states">STATES</a>
         <a href="https://github.com/markc/markup">SOURCE</a>
       </nav>
       <nav id="editor_menu" class="hidden">
