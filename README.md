@@ -63,40 +63,40 @@ EDITOR
 ------
 
 - **HELP**
-  [Markdown] format help. Copy and paste sections into the
-  editor to see how the Markdown examples look when rendered into
-  HTML.
+   [Markdown] format help. Copy and paste sections into the
+   editor to see how the Markdown examples look when rendered into
+   HTML.
 
 - **EDIT**
-  Shows a simple plain textarea editor, add any valid markdown
-  text and click SHOW to see it marked up.
+   Shows a simple plain textarea editor, add any valid markdown
+   text and click SHOW to see it marked up.
 
 - **SHOW**
-  Shows the marked up HTML version of whatever is in the editor.
+   Shows the marked up HTML version of whatever is in the editor.
 
 - **HTML**
-  Shows the raw HTML version of the marked up text.
+   Shows the raw HTML version of the marked up text.
 
 - **JSON**
-  Shows the intermediate `Json` format from [marked.js].
+   Shows the intermediate `Json` format from [marked.js].
 
 - **STORE**
-  Stores whatever is in the editor to localStorage so that a full
-  page refresh still contains the last edits.
+   Stores whatever is in the editor to localStorage so that a full
+   page refresh still contains the last edits.
 
 - **REMOVE**
-  Clears the localStorage facility.
+   Clears the localStorage facility.
 
 - **PRINT**
-  Dumps the contents of localStorage.
+   Dumps the contents of localStorage.
 
 - **FLUSH**
-  Clears the localStorage facility.
+   Clears the localStorage facility.
 
 SOURCE
 ------
 
-An offsite link to the Github source for this project.
+An external offsite link to the Github source page for this project.
 
 [AGPLv3]: http://www.gnu.org/licenses/agpl.html
 [Showdown]: https://github.com/coreyti/showdown
