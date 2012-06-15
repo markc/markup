@@ -413,9 +413,7 @@ window.onload = function() {
 
   // globals
 
-  var uri = '',
-      current_url = '',
-      current_path = '';
+  var uri = '', current_uri = '';
 
   // support functions
 
@@ -433,6 +431,7 @@ window.onload = function() {
     if (json instanceof Array && typeof json[1] === 'string') {
       var text = /<json>[\s\S]*<\/json>\s*([\s\S]*)\s*$/mgi.exec(str);
       if (text instanceof Array && typeof text[1] === 'string') {
+        id('text').value = json[1] + text[1];
         id(target).innerHTML = marked(text[1]);
       }
       var o = JSON.parse(json[1]);
@@ -444,21 +443,25 @@ window.onload = function() {
         }
       });
     } else {
+      id('text').value = str;
       id(target).innerHTML = marked(str);
     }
   }
 
   var get = function(url, target, callback) {
     target = target || 'view';
+console.log(url, '=', target)
+    document.title = url;
+    history.pushState({id:target}, '', url);
     if (url.match(/^\/\S+\/\d+$/)) {
       var tmp = /^(.+)(\/\d+$)/.exec(url);
-      url = tmp[1] + '/lib/htm' + tmp[2] + '.htm';
-    } else if (url.match(/\/\d+$/)) {
-      url = '/lib/htm' + url + '.htm';
+      url = [tmp[1], '/lib/htm', tmp[2], '.htm'].join('').replace(/\/\//g, '/');
+    } else if (uri.match(/\/\d+$/)) {
+      url = ['/lib/htm', url, '.htm'].join('').replace(/\/\//g, '/');
     }
     var cached = localStorage.getItem(url);
     if (cached) {
-      current_url = url;
+      current_uri = url;
       htm(cached, target);
       if (typeof callback === 'function') callback(target);
       return false;
@@ -466,7 +469,7 @@ window.onload = function() {
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-          current_url = url;
+          current_uri = url;
           localStorage.setItem(url, xhr.responseText);
           htm(xhr.responseText, target);
           if (typeof callback === 'function') callback(target);
@@ -484,7 +487,7 @@ window.onload = function() {
         get(location.pathname, state.id, function() {
           var el = id(state.id);
           if (el.previousElementSibling.nodeName === 'A'
-          && el.previousElementSibling.classList.contains('tree')) {
+           && el.previousElementSibling.classList.contains('tree')) {
             if (el.previousElementSibling.classList.contains('open'))
               el.previousElementSibling.classList.remove('open');
             else
@@ -529,10 +532,7 @@ window.onload = function() {
   };
 
   id('states_menu').onclick = function(e) {
-    var p = e.target.pathname;
-    document.title = p;
-    history.pushState({id:p.replace(/(\/|\.|-)/g,'_')}, '', p);
-    get(p);
+    get(e.target.pathname);
     return false;
   };
 
@@ -560,15 +560,15 @@ window.onload = function() {
   };
 
   id('store').onclick = function() {
-    localStorage.setItem(current_url, id('text').value);
-    htm(id('text').value, 'view');
+    localStorage.setItem(current_uri, id('text').value);
+    htm(id('text').value, 'view'); // TODO
     return false;
   };
 
   id('remove').onclick = function () {
-    if (localStorage.getItem(current_url))
-      localStorage.removeItem(current_url);
-    current_url = '';
+    if (localStorage.getItem(current_uri))
+      localStorage.removeItem(current_uri);
+    current_uri = '';
     id('text').value = '';
     id('view').innerHTML = '';
     id('area').classList.add('hidden');
@@ -578,14 +578,16 @@ window.onload = function() {
 
   id('print').onclick = function () {
     if (localStorage.length) {
-      var l = localStorage.length;
-      var a = ['<pre>'];
-      for(var i=0; i < l; i++) {
+      var l = localStorage.length,
+          a = ['<pre>'],
+          i = 0;
+      for(; i < l; i++) {
         a.push('\n' + localStorage.key(i));
         a.push('----------------------------------------------------------------');
         a.push(html_encode(localStorage.getItem(localStorage.key(i))));
       }
-      id('view').innerHTML = a.join("\n") + '</pre>';
+      a.push('</pre>');
+      id('view').innerHTML = a.join('\n');
     }
     return false;
   };
@@ -596,12 +598,12 @@ window.onload = function() {
     id('view').innerHTML = '';
     id('area').classList.add('hidden');
     id('edit').classList.remove('current');
-    get('README.md');
+//    get('README.md');
     return false;
   };
 
-  id('menu').onclick = function() {
-    get(curent_path + '/lib/htm/0.htm');
+  id('menu').onclick = function(e) {
+    get(e.target.pathname);
     return false;
   };
 
@@ -612,48 +614,26 @@ window.onload = function() {
       if (t.classList.contains('cached')) {
         t.classList.toggle('open');
       } else {
-        get(t.pathname, i, function(){
+        get(t.pathname, i, function() {
           t.classList.toggle('open');
           t.classList.add('cached');
           return false;
         })
       }
-      document.title = t.pathname;
-      history.pushState({id:i}, '', t.pathname);
       return false;
     }
   };
 
   // live code active on page (re)load
 
+  uri = location.pathname;
   if (location.hash) {
-    uri = location.hash.replace(/^\#/, '');
-    location.replace(uri);
-  } else {
-    uri = location.pathname;
+    uri = uri + location.hash.replace(/^(#\/)/, '');
+//    location.replace(uri); // will loop using 404.html at Github
   }
 
-  if (uri.match(/^\/\S+\/\d+$/)) {
-    var tmp = /^(.+)(\/\d+$)/.exec(uri);
-    current_path = tmp[1];
-    uri = tmp[1] + '/lib/htm' + tmp[2] + '.htm';
-  } else if (uri.match(/\/\d+$/)) {
-    var tmp2 = /^(.+)(\/\d+$)/.exec(uri);
-    uri = '/lib/htm' + uri + '.htm';
-  } else if (uri.match(/^\/\S+/)) {
-    current_path = location.pathname;
-    var uri = 'README.md';
-  } else {
-    var uri = 'README.md';
-  }
-
-  var cached = localStorage.getItem(uri);
-  if (cached) {
-    id('text').value = cached;
-    id('view').innerHTML = marked(cached);
-  } else {
-    get(uri);
-  }
+  if (!uri.match(/\/d+$/)) uri = 'README.md';
+  get(uri);
 
 };
     </script>
@@ -663,13 +643,13 @@ window.onload = function() {
   </head>
   <body>
     <header id="top">
-      <a id="logo" href="">
+      <a id="logo" href="/markup/">
         <img id="logo_img" alt="Markup LOGO" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
         <span id="logo_txt">Markup</span>
       </a>
       <nav id="nav">
         <a href="" id="readme">README</a>
-        <a href="" id="menu">MENU</a>
+        <a href="/markup/0" id="menu">MENU</a>
         <a href="" id="states">STATES</a>
         <a href="" id="editor">EDITOR</a>
         <a href="https://github.com/markc/markup">SOURCE</a>
@@ -686,12 +666,12 @@ window.onload = function() {
         <a href="" id="flush">FLUSH</a>
       </nav>
       <nav id="states_menu" class="hidden">
-        <a href="1">New South Wales</a>
-        <a href="2">Queensland</a>
-        <a href="3">South Australia</a>
-        <a href="4">Tasmania</a>
-        <a href="5">Victoria</a>
-        <a href="6">Western Australia</a>
+        <a href="/markup/1">New South Wales</a>
+        <a href="/markup/2">Queensland</a>
+        <a href="/markup/3">South Australia</a>
+        <a href="/markup/4">Tasmania</a>
+        <a href="/markup/5">Victoria</a>
+        <a href="/markup/6">Western Australia</a>
       </nav>
     </header>
     <section id="mid">
