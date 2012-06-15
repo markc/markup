@@ -52,45 +52,46 @@ content presented by the STATES top nav link.
 STATES
 ------
 
-Just a set of pages to demonstrate pushState, that is, being able
-to use the back and forward browser navigation options without
-resorting to using a #hash tag. However, if a #hash is used then
-it will stripped out and internally revert to a non-hash
-history.pushState even though the URL bar will still show the
-#hash.
+Just a set of pages to demonstrate `history.pushState`, that is,
+being able to use the back and forward browser navigation options
+without resorting to using a `#hash` tag. However, if a `#hash`
+is used then it will stripped out and internally revert to a
+non-hash `history.pushState` event even though the URL bar will
+still show the `#hash`.
 
 EDITOR
 ------
 
-#### HELP
-[Markdown] format help. Copy and paste sections into the editor
-to see how the Markdown examples look when rendered into HTML.
+- **HELP**
+  [Markdown] format help. Copy and paste sections into the
+  editor to see how the Markdown examples look when rendered into
+  HTML.
 
-#### EDIT
-Shows a simple plain textarea editor, add any valid markdown text
-and click SHOW to see it marked up.
+- **EDIT**
+  Shows a simple plain textarea editor, add any valid markdown
+  text and click SHOW to see it marked up.
 
-#### SHOW
-Shows the marked up HTML version of whatever is in the editor.
+- **SHOW**
+  Shows the marked up HTML version of whatever is in the editor.
 
-#### HTML
-Shows the raw HTML version of the marked up text.
+- **HTML**
+  Shows the raw HTML version of the marked up text.
 
-#### JSON
-Shows the intermediate `Json` format from [marked.js].
+- **JSON**
+  Shows the intermediate `Json` format from [marked.js].
 
-#### STORE
-Stores whatever is in the editor to localStorage so that a full
-page refresh still contains the last edits.
+- **STORE**
+  Stores whatever is in the editor to localStorage so that a full
+  page refresh still contains the last edits.
 
-#### REMOVE
-Clears the localStorage facility.
+- **REMOVE**
+  Clears the localStorage facility.
 
-#### PRINT
-Dumps the contents of localStorage.
+- **PRINT**
+  Dumps the contents of localStorage.
 
-#### FLUSH
-Clears the localStorage facility.
+- **FLUSH**
+  Clears the localStorage facility.
 
 SOURCE
 ------
