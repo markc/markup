@@ -62,36 +62,36 @@ still show the `#hash`.
 EDITOR
 ------
 
-- **HELP**
-   [Markdown] format help. Copy and paste sections into the
-   editor to see how the Markdown examples look when rendered into
-   HTML.
+- **HELP**<br>
+  [Markdown] format help. Copy and paste sections into the
+  editor to see how the Markdown examples look when rendered into
+  HTML.
 
-- **EDIT**
-   Shows a simple plain textarea editor, add any valid markdown
-   text and click SHOW to see it marked up.
+- **EDIT**<br>
+  Shows a simple plain textarea editor, add any valid markdown
+  text and click SHOW to see it marked up.
 
-- **SHOW**
-   Shows the marked up HTML version of whatever is in the editor.
+- **SHOW**<br>
+  Shows the marked up HTML version of whatever is in the editor.
 
-- **HTML**
-   Shows the raw HTML version of the marked up text.
+- **HTML**<br>
+  Shows the raw HTML version of the marked up text.
 
-- **JSON**
-   Shows the intermediate `Json` format from [marked.js].
+- **JSON**<br>
+  Shows the intermediate `Json` format from [marked.js].
 
-- **STORE**
-   Stores whatever is in the editor to localStorage so that a full
-   page refresh still contains the last edits.
+- **STORE**<br>
+  Stores whatever is in the editor to localStorage so that a full
+  page refresh still contains the last edits.
 
-- **REMOVE**
-   Clears the localStorage facility.
+- **REMOVE**<br>
+  Clears the localStorage facility.
 
-- **PRINT**
-   Dumps the contents of localStorage.
+- **PRINT**<br>
+  Dumps the contents of localStorage.
 
-- **FLUSH**
-   Clears the localStorage facility.
+- **FLUSH**<br>
+  Clears the localStorage facility.
 
 SOURCE
 ------
