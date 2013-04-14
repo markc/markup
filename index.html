@@ -13,17 +13,9 @@
 
 * {
   border: none;
-  font-family: "Open Sans Condensed", sans-serif;
-  font-size: 100%;
-  line-height: 160%;
   margin: 0em;
   outline: none;
   padding: 0em;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
 }
 
 html {
@@ -32,9 +24,12 @@ html {
 }
 
 body {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 100%;
+  line-height: 160%;
   margin: 2.6em auto;
   overflow-y: scroll;
-  width: 54em;
+  width: 60em;
 }
 
 h1 { font-size: 160%; }
@@ -104,7 +99,7 @@ hr {
 }
 
 nav {
-  margin: 0.675em 0em;
+  margin: 0.5em 0em;
   text-align: center;
 }
 
@@ -114,6 +109,16 @@ nav a {
   border-radius: 0.3em;
   font-size: 75%;
   padding: 0.5em 1em;
+}
+
+main {
+  display: block;
+  min-height: 16em;
+  border-style: solid;
+  border-width: 0.075em;
+  border-radius: 0.6em;
+  padding: 1em 1.5em;
+  margin-bottom: 1em;
 }
 
 footer {
@@ -127,41 +132,31 @@ footer a {
 }
 
 #top {
+  height: 3em;
   left: 0;
   position: fixed;
   top: 0;
   width: 100%;
 }
 
-#top nav {
-  text-align: right;
-  padding-right: 0.5em;
+#nav {
+  margin-top: 0.5em;
+  float: right;
 }
 
 #logo {
   display: inline-block;
-  float: left;
-  line-height: 100%;
 }
 
 #logo img {
-  height: 3em;
+  height: 2.8em;
   vertical-align: top;
 }
 
 #logo span {
-  font-size: 2.7em;
+  font-size: 2.6em;
   font-weight: bold;
   line-height: 100%;
-}
-
-#mid {
-  min-height: 16em;
-  border-style: solid;
-  border-width: 0.075em;
-  border-radius: 0.6em;
-  padding: 1em 1.5em;
-  margin-bottom: 1em;
 }
 
 #text {
@@ -171,9 +166,10 @@ footer a {
   width: 100%;
 }
 
-.hidden { display: none; }
-
-
+#hwrap {
+  margin: 0 auto;
+  width: 60em;
+}
 
 a.thumbnail {
   display: block;
@@ -210,20 +206,17 @@ a.tree::before {
   position: absolute;
   left: 0; top: 0;
   width: 1.5em; height: 1.5em;
-
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
   transform: rotate(0deg);
-
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.1s ease-in-out;
+  -moz-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 a.tree.open::before {
   content: "";
   width: 1.5em; height: 1.5em;
-
   -webkit-transform: rotate(90deg);
   -moz-transform: rotate(90deg);
   transform: rotate(90deg);
@@ -236,6 +229,8 @@ a.tree.open::before {
 #view div div div div div a.tree { margin-left: 5em; }
 #view div div div div div div a.tree { margin-left: 6em; }
 #view div div div div div div div a.tree { margin-left: 7em; }
+
+.hidden { display: none; }
 
 /* colors */
 
@@ -314,6 +309,12 @@ nav a:active {
   box-shadow: inset 0 0.2em 0.5em rgba(0, 0, 0, 1);
 }
 
+main {
+  background-color: #FFFFFF;
+  border-color: #CFCFCF;
+  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
+}
+
 footer a {
   color: #7F7F7F;
 }
@@ -355,12 +356,6 @@ footer a {
 #logo span {
   color: #7F7F7F;
   text-shadow: 0 -0.025em 0.025em #BFBFBF, 0 0.025em 0.025em #000000;
-}
-
-#mid {
-  background-color: #FFFFFF;
-  border-color: #CFCFCF;
-  box-shadow: 0 0.2em 0.5em rgba(0, 0, 0, 0.5);
 }
 
 #top nav a.current, nav a.current {
@@ -453,12 +448,10 @@ window.onload = function() {
 console.log(url, '=', target)
     document.title = url;
     history.pushState({id:target}, '', url);
-    if (url.match(/^\/\S+\/\d+$/)) {
-      var tmp = /^(.+)(\/\d+$)/.exec(url);
-      url = [tmp[1], '/lib/htm', tmp[2], '.htm'].join('').replace(/\/\//g, '/');
-    } else if (uri.match(/\/\d+$/)) {
+    if (url.match(/\/\d+$/)) {
       url = ['/lib/htm', url, '.htm'].join('').replace(/\/\//g, '/');
     }
+console.log('url=', url)
     var cached = localStorage.getItem(url);
     if (cached) {
       current_uri = url;
@@ -624,15 +617,12 @@ console.log(url, '=', target)
     }
   };
 
-  // live code active on page (re)load
-
   uri = location.pathname;
   if (location.hash) {
     uri = uri + location.hash.replace(/^(#\/)/, '');
-//    location.replace(uri); // will loop using 404.html at Github
   }
 
-  if (!uri.match(/\/d+$/)) uri = 'README.md';
+  if (uri === '/') uri = 'README.md';
   get(uri);
 
 };
@@ -643,47 +633,49 @@ console.log(url, '=', target)
   </head>
   <body>
     <header id="top">
-      <a id="logo" href="/markup/">
-        <img id="logo_img" alt="Markup LOGO" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
-        <span id="logo_txt">Markup</span>
-      </a>
-      <nav id="nav">
-        <a href="" id="readme">README</a>
-        <a href="/markup/0" id="menu">MENU</a>
-        <a href="" id="states">STATES</a>
-        <a href="" id="editor">EDITOR</a>
-        <a href="https://github.com/markc/markup">SOURCE</a>
-      </nav>
-      <nav id="editor_menu" class="hidden">
-        <a href="" id="edit">EDIT</a>
-        <a href="" id="show">SHOW</a>
-        <a href="" id="html">HTML</a>
-        <a href="" id="json">JSON</a>
-        <a href="" id="help">HELP</a>
-        <a href="" id="store">STORE</a>
-        <a href="" id="remove">REMOVE</a>
-        <a href="" id="print">PRINT</a>
-        <a href="" id="flush">FLUSH</a>
-      </nav>
-      <nav id="states_menu" class="hidden">
-        <a href="/markup/1">New South Wales</a>
-        <a href="/markup/2">Queensland</a>
-        <a href="/markup/3">South Australia</a>
-        <a href="/markup/4">Tasmania</a>
-        <a href="/markup/5">Victoria</a>
-        <a href="/markup/6">Western Australia</a>
-      </nav>
+      <div id="hwrap">
+        <a id="logo" href="/">
+          <img id="logo_img" alt="Markup LOGO" src="data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDY0IDM2IiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pbiBtZWV0IiBpZD0ibWFya2NzdmciPjxwb2x5Z29uIHBvaW50cz0iMSwyNyA2MywyNyAzMiwzNSIgc3R5bGU9ImZpbGw6I2VmMDBlZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMywyMSA2MSwyMSAzMiwzNSIgc3R5bGU9ImZpbGw6IzdmMWZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iNiwxNSA1OCwxNSAzMiwzNSIgc3R5bGU9ImZpbGw6IzAwN2ZmZjtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMTAsMTAgNTQsMTAgMzIsMzUiIHN0eWxlPSJmaWxsOiMwMGJmMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48cG9seWdvbiBwb2ludHM9IjE1LDYgNDksNiAzMiwzNSIgc3R5bGU9ImZpbGw6I2ZmY2YwMDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MC4yO3N0cm9rZS1saW5lam9pbjpyb3VuZCIvPjxwb2x5Z29uIHBvaW50cz0iMjEsMyA0MywzIDMyLDM1IiBzdHlsZT0iZmlsbDojZmY4ZjAwO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDowLjI7c3Ryb2tlLWxpbmVqb2luOnJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSIyOCwxIDM2LDEgMzIsMzUiIHN0eWxlPSJmaWxsOiNmZjAwMDA7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjAuMjtzdHJva2UtbGluZWpvaW46cm91bmQiLz48L3N2Zz4=">
+          <span id="logo_txt">Markup</span>
+        </a>
+        <nav id="nav">
+          <a href="/" id="readme">README</a>
+          <a href="/0" id="menu">MENU</a>
+          <a href="/" id="states">STATES</a>
+          <a href="/" id="editor">EDITOR</a>
+          <a href="https://github.com/markc/markup">SOURCE</a>
+        </nav>
+      </div>
+    <nav id="editor_menu" class="hidden">
+      <a href="" id="edit">EDIT</a>
+      <a href="" id="show">SHOW</a>
+      <a href="" id="html">HTML</a>
+      <a href="" id="json">JSON</a>
+      <a href="" id="help">HELP</a>
+      <a href="" id="store">STORE</a>
+      <a href="" id="remove">REMOVE</a>
+      <a href="" id="print">PRINT</a>
+      <a href="" id="flush">FLUSH</a>
+    </nav>
+    <nav id="states_menu" class="hidden">
+      <a href="/1">New South Wales</a>
+      <a href="/2">Queensland</a>
+      <a href="/3">South Australia</a>
+      <a href="/4">Tasmania</a>
+      <a href="/5">Victoria</a>
+      <a href="/6">Western Australia</a>
+    </nav>
     </header>
-    <section id="mid">
+    <main>
       <div id="area" class="hidden">
         <textarea id="text"></textarea>
       </div>
       <aside id="sidebar"></aside>
       <div id="view"></div>
-    </section>
+    </main>
     <footer id="end">
       <a href="http://validator.w3.org/check?uri=referer" title="Validate This Page">
-        Copyright &copy; 2007-2012 Mark Constable (AGPLv3)
+        Copyright &copy; 2007-2013 Mark Constable (AGPLv3)
       </a>
     </footer>
     <pre id="markdown" class="hidden">
@@ -766,7 +758,7 @@ blank lines. Span-level HTML can include markup but any
 block-level markup will be ignored.
     </pre>
 
-    <script src="https://raw.github.com/chjj/marked/master/lib/marked.js"></script>
-    <!-- <script src="/lib/js/marked.js"></script> -->
+    <!-- <script src="https://raw.github.com/chjj/marked/master/lib/marked.js"></script>-->
+    <script src="/lib/js/marked.js"></script>
   </body>
 </html>
